@@ -5,6 +5,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
+from group import Group
 import unittest, time, re
 from selenium.webdriver.firefox.options import Options
 
@@ -22,25 +23,33 @@ class TestAddGroup(unittest.TestCase):
         self.openHomePage(wd)
         self.login(wd, username="admin", password="secret")
         # wd.find_element_by_name("searchform").click()
-        self.addNewGroup(wd)
+        self.addNewGroup(wd, Group(name="fggf", header="dsfdffd", footer="вавпр"))
+        wd.find_element_by_link_text("groups").click()
+        self.logout(wd)
+    def test_add_empty_group(self):
+        wd = self.wd
+        self.openHomePage(wd)
+        self.login(wd, username="admin", password="secret")
+        # wd.find_element_by_name("searchform").click()
+        self.addNewGroup(wd, Group(name="", header="", footer=""))
         wd.find_element_by_link_text("groups").click()
         self.logout(wd)
 
     def logout(self, wd):
         wd.find_element_by_link_text("Logout").click()
 
-    def addNewGroup(self, wd):
+    def addNewGroup(self, wd, group):
         wd.find_element_by_link_text("groups").click()
         wd.find_element_by_name("new").click()
         wd.find_element_by_name("group_name").click()
         wd.find_element_by_name("group_name").clear()
-        wd.find_element_by_name("group_name").send_keys("fggf")
+        wd.find_element_by_name("group_name").send_keys(group.name)
         wd.find_element_by_name("group_header").click()
         wd.find_element_by_name("group_header").clear()
-        wd.find_element_by_name("group_header").send_keys("dsfdffd")
+        wd.find_element_by_name("group_header").send_keys(group.header)
         wd.find_element_by_name("group_footer").click()
         wd.find_element_by_name("group_footer").clear()
-        wd.find_element_by_name("group_footer").send_keys(u"вавпр")
+        wd.find_element_by_name("group_footer").send_keys(group.footer)
         wd.find_element_by_name("submit").click()
 
     def login(self, wd, username, password):
