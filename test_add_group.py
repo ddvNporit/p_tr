@@ -6,8 +6,8 @@ from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 from group import Group
-import unittest, time, re
 from selenium.webdriver.firefox.options import Options
+import unittest
 
 class TestAddGroup(unittest.TestCase):
     def setUp(self):
