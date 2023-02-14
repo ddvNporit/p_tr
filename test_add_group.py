@@ -8,7 +8,6 @@ from selenium.common.exceptions import NoAlertPresentException
 import unittest, time, re
 from selenium.webdriver.firefox.options import Options
 
-# driver.get('http://google.com/')
 class TestAddGroup(unittest.TestCase):
     def setUp(self):
         options = Options()
@@ -17,7 +16,7 @@ class TestAddGroup(unittest.TestCase):
         # self.wd = webdriver.Firefox()
         self.wd.implicitly_wait(30)
         self.wd
-    
+
     def test_add_group(self):
         wd = self.wd
         wd.get("http://localhost/addressbook/")
