@@ -8,7 +8,6 @@ from selenium.common.exceptions import NoAlertPresentException
 import unittest, time, re
 from selenium.webdriver.firefox.options import Options
 
-
 # driver.get('http://google.com/')
 class TestAddGroup(unittest.TestCase):
     def setUp(self):
@@ -18,9 +17,6 @@ class TestAddGroup(unittest.TestCase):
         # self.wd = webdriver.Firefox()
         self.wd.implicitly_wait(30)
         self.wd
-        # self.base_url = "https://www.google.com/"
-        # self.verificationErrors = []
-        # self.accept_next_alert = True
     
     def test_add_group(self):
         wd = self.wd
@@ -57,21 +53,9 @@ class TestAddGroup(unittest.TestCase):
         try: self.wd.switch_to_alert()
         except NoAlertPresentException as e: return False
         return True
-    
-    # def close_alert_and_get_its_text(self):
-    #     try:
-    #         alert = self.driver.switch_to_alert()
-    #         alert_text = alert.text
-    #         if self.accept_next_alert:
-    #             alert.accept()
-    #         else:
-    #             alert.dismiss()
-    #         return alert_text
-    #     finally: self.accept_next_alert = True
-    
+
     def tearDown(self):
         self.wd.quit()
-        # self.assertEqual([], self.verificationErrors)
 
 if __name__ == "__main__":
     unittest.main()
