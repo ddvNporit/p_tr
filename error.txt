@@ -1,0 +1,22 @@
+
+D:\PycharmProjects\pythonProject\p_tr\Scripts\python.exe "C:/Program Files/JetBrains/PyCharm Community Edition 2022.3.2/plugins/python-ce/helpers/pydev/pydevconsole.py" --mode=client --host=127.0.0.1 --port=53975
+import sys; print('Python %s on %s' % (sys.version, sys.platform))
+sys.path.extend(['D:\\PycharmProjects\\p_tr'])
+PyDev console: starting.
+Python 3.7.0 (v3.7.0:1bf9cc5093, Jun 27 2018, 04:59:51) [MSC v.1914 64 bit (AMD64)] on win32
+py.test test_add_group.py
+Traceback (most recent call last):
+  File "C:\Python37\lib\code.py", line 63, in runsource
+    code = self.compile(source, filename, symbol)
+  File "C:\Python37\lib\codeop.py", line 168, in __call__
+    return _maybe_compile(self.compiler, source, filename, symbol)
+  File "C:\Python37\lib\codeop.py", line 99, in _maybe_compile
+    raise err1
+  File "C:\Python37\lib\codeop.py", line 87, in _maybe_compile
+    code1 = compiler(source + "\n", filename, symbol)
+  File "C:\Python37\lib\codeop.py", line 133, in __call__
+    codeob = compile(source, filename, symbol, self.flags, 1)
+  File "<input>", line 1
+    py.test test_add_group.py
+                         ^
+SyntaxError: invalid syntax
