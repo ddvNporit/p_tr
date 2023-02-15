@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
 from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 from group import Group
+from login import LoginS
 from selenium.webdriver.firefox.options import Options
 import unittest
 
@@ -21,7 +19,7 @@ class TestAddGroup(unittest.TestCase):
     def test_add_group(self):
         wd = self.wd
         self.openHomePage(wd)
-        self.login(wd, username="admin", password="secret")
+        self.login(wd, LoginS(username="admin", password="secret"))
         # wd.find_element_by_name("searchform").click()
         self.addNewGroup(wd, Group(name="fggf", header="dsfdffd", footer="вавпр"))
         wd.find_element_by_link_text("groups").click()
@@ -29,7 +27,7 @@ class TestAddGroup(unittest.TestCase):
     def test_add_empty_group(self):
         wd = self.wd
         self.openHomePage(wd)
-        self.login(wd, username="admin", password="secret")
+        self.login(wd, LoginS(username="admin", password="secret"))
         # wd.find_element_by_name("searchform").click()
         self.addNewGroup(wd, Group(name="", header="", footer=""))
         wd.find_element_by_link_text("groups").click()
@@ -52,13 +50,13 @@ class TestAddGroup(unittest.TestCase):
         wd.find_element_by_name("group_footer").send_keys(group.footer)
         wd.find_element_by_name("submit").click()
 
-    def login(self, wd, username, password):
+    def login(self, wd, login):
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()
-        wd.find_element_by_name("user").send_keys(username)
+        wd.find_element_by_name("user").send_keys(login.username)
         wd.find_element_by_name("pass").click()
         wd.find_element_by_name("pass").clear()
-        wd.find_element_by_name("pass").send_keys(password)
+        wd.find_element_by_name("pass").send_keys(login.password)
         wd.find_element_by_xpath("//input[@value='Login']").click()
 
     def openHomePage(self, wd):
