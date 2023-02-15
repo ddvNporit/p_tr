@@ -17,9 +17,10 @@ class TestAddUser(unittest.TestCase):
         wd = self.wd
         self.openHomePage(wd)
         self.login(wd, LoginS(username="admin", password="secret"))
-        self.addNewUser(wd, UserfieldsName(firstname="Петров", middlename="Иван", lastname="Иванович", nickname="кличка"),\
+        self.addNewUser(wd, UserfieldsName(firstname="Петров", middlename="Иван", lastname="Иванович", nickname="кличка"), \
                         UserAddress(title="title", company="comp", address="address", home="home", mobile="232323", work="232344354",\
-                                    fax="232323", email="sd@test.com", email2="we@test.net"))
+                                    fax="232323", email="sd@test.com", email2="we@test.net", email3="wewd@t.er", homepage="http://ya.ru",\
+                                    bday="23", bmonth="December", byear="1987", address2="jhdufyhdh", phone2="233443", notes="dfdjdj"))
         self.logout(wd)
     def addNewUser(self, wd, userfield, useraddress):
         wd.find_element_by_link_text("add new").click()
@@ -44,19 +45,19 @@ class TestAddUser(unittest.TestCase):
         wd.find_element_by_name("fax").send_keys(useraddress.fax)
         wd.find_element_by_name("email").send_keys(useraddress.email)
         wd.find_element_by_name("email2").send_keys(useraddress.email2)
-        wd.find_element_by_name("email3").send_keys("hhhhhhhhhhhhhhhh")
-        wd.find_element_by_name("homepage").send_keys("jjjjjjjjjjjjjj")
+        wd.find_element_by_name("email3").send_keys(useraddress.email3)
+        wd.find_element_by_name("homepage").send_keys(useraddress.homepage)
         wd.find_element_by_name("bday").click()
-        Select(wd.find_element_by_name("bday")).select_by_visible_text("25")
+        Select(wd.find_element_by_name("bday")).select_by_visible_text(useraddress.bday)
         wd.find_element_by_xpath("//option[@value='25']").click()
         wd.find_element_by_name("bmonth").click()
-        Select(wd.find_element_by_name("bmonth")).select_by_visible_text("December")
+        Select(wd.find_element_by_name("bmonth")).select_by_visible_text(useraddress.bmonth)
         wd.find_element_by_xpath("//option[@value='December']").click()
-        wd.find_element_by_name("byear").send_keys("1970")
+        wd.find_element_by_name("byear").send_keys(useraddress.byear)
         wd.find_element_by_name("theform").click()
-        wd.find_element_by_name("address2").send_keys("fgtgggggggggggg")
-        wd.find_element_by_name("phone2").send_keys("ggggggggggggg")
-        wd.find_element_by_name("notes").send_keys("fffffffffffffffffffffffff")
+        wd.find_element_by_name("address2").send_keys(useraddress.address2)
+        wd.find_element_by_name("phone2").send_keys(useraddress.phone2)
+        wd.find_element_by_name("notes").send_keys(useraddress.notes)
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
         wd.find_element_by_link_text("home").click()
 
