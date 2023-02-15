@@ -3,4 +3,4 @@ class UserfieldsName:
         self.firstname = firstname
         self.middlename = middlename
         self.lastname = lastname
-        self.nickname=nickname
+        self.nickname = nickname
