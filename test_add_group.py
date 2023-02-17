@@ -18,35 +18,37 @@ class TestAddGroup(unittest.TestCase):
 
     def test_add_group(self):
         wd = self.wd
-        self.login(wd, LoginS(username="admin", password="secret"))
-        self.addNewGroup(wd, Group(name="fggf", header="dsfdffd", footer="вавпр"))
-        self.logout(wd)
+        self.login(LoginS(username="admin", password="secret"))
+        self.addNewGroup(Group(name="fggf", header="dsfdffd", footer="вавпр"))
+        self.logout()
     def test_add_empty_group(self):
         wd = self.wd
-        self.login(wd, LoginS(username="admin", password="secret"))
-        self.addNewGroup(wd, Group(name="", header="", footer=""))
-        self.logout(wd)
+        self.login(LoginS(username="admin", password="secret"))
+        self.addNewGroup(Group(name="", header="", footer=""))
+        self.logout()
 
-    def logout(self, wd):
+    def logout(self):
+        wd = self.wd
         wd.find_element_by_link_text("Logout").click()
-    # def open_page_group(self, wd):
-    #     wd.find_element_by_link_text("groups").click()
-    def return_to_groups_page(self, wd):
+    def return_to_groups_page(self):
+        wd = self.wd
         wd.find_element_by_link_text("group page").click()
-    def addNewGroup(self, wd, group):
+    def addNewGroup(self, group):
+        wd = self.wd
         wd.find_element_by_name("new").click()
         wd.find_element_by_name("group_name").send_keys(group.name)
         wd.find_element_by_name("group_header").send_keys(group.header)
         wd.find_element_by_name("group_footer").send_keys(group.footer)
         wd.find_element_by_name("submit").click()
-        self.return_to_groups_page(wd)
+        self.return_to_groups_page()
 
-    def open_groups_page(self, wd):
+    def open_groups_page(self):
+        wd = self.wd
         wd.find_element_by_link_text("groups").click()
 
-    def login(self, wd, login):
-        self.openHomePage(wd)
-
+    def login(self, login):
+        wd = self.wd
+        self.openHomePage()
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()
         wd.find_element_by_name("user").send_keys(login.username)
@@ -54,9 +56,10 @@ class TestAddGroup(unittest.TestCase):
         wd.find_element_by_name("pass").clear()
         wd.find_element_by_name("pass").send_keys(login.password)
         wd.find_element_by_xpath("//input[@value='Login']").click()
-        self.open_groups_page(wd)
+        self.open_groups_page()
 
-    def openHomePage(self, wd):
+    def openHomePage(self):
+        wd = self.wd
         wd.get("http://localhost/addressbook/")
 
     def is_element_present(self, how, what):
