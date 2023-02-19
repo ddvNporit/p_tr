@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-from userfield import UserfieldsName
+from model.userfield import UserfieldsName
 from application_user import Application_u
-from useraddress import UserAddress
+from model.useraddress import UserAddress
 import pytest
 
 @pytest.fixture()
