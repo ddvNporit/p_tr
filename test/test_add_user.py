@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from model.userfield import UserfieldsName
-from application_user import Application_u
+from fixture.application_user import Application_u
 from model.useraddress import UserAddress
 import pytest
 
