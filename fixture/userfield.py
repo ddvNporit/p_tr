@@ -2,7 +2,7 @@ from selenium.webdriver.support.select import Select
 class UserFieldsHelper():
     def __init__(self, app):
         self.app = app
-    def addNewUser(self, userfield):
+    def add(self, userfield):
         wd = self.app.wd
         wd.find_element_by_link_text("add new").click()
         wd.find_element_by_name("firstname").click()
