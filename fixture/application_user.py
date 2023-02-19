@@ -1,10 +1,11 @@
 from selenium import webdriver
 from selenium.webdriver.support.select import Select
-
+from fixture.session_user import SessionHelper
 class Application_u():
     def __init__(self):
         self.wd = webdriver.Firefox()
         self.wd.implicitly_wait(30)
+        self.session = SessionHelper(self)
     def addNewUser(self, userfield, useraddress):
         wd = self.wd
         wd.find_element_by_link_text("add new").click()
@@ -45,22 +46,9 @@ class Application_u():
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
         wd.find_element_by_link_text("home").click()
 
-    def login(self, username, password):
-        wd = self.wd
-        wd.find_element_by_name("user").click()
-        wd.find_element_by_name("user").clear()
-        wd.find_element_by_name("user").send_keys(username)
-        wd.find_element_by_name("pass").click()
-        wd.find_element_by_name("pass").clear()
-        wd.find_element_by_name("pass").send_keys(password)
-        wd.find_element_by_xpath("//input[@value='Login']").click()
-
     def openHomePage(self):
         wd = self.wd
         wd.get("http://localhost/addressbook/")
 
-    def logout(self):
-        wd = self.wd
-        wd.find_element_by_link_text("Logout").click()
     def destoy(self):
         self.wd.quit()
