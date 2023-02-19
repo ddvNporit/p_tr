@@ -1,13 +1,6 @@
 # -*- coding: utf-8 -*-
 from model.userfield import UserfieldsName
-from fixture.application_user import Application_u
-import pytest
 
-@pytest.fixture()
-def app(request):
-    fixture = Application_u()
-    request.addfinalizer(fixture.destoy)
-    return fixture
 def test_add_user(app):
     app.openHomePage()
     app.session.login(username="admin", password="secret")
