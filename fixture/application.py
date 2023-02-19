@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from selenium import webdriver
-from fixture.session import  SessionHelper
-from fixture.group import  GroupHelper
+from fixture.session import SessionHelper
+from fixture.group import GroupHelper
 # from selenium.webdriver.support.ui import Select
 # from selenium.common.exceptions import NoSuchElementException
 # from selenium.common.exceptions import NoAlertPresentException

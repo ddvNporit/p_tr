@@ -14,15 +14,15 @@ class TestAddUser(unittest.TestCase):
         self.wd.implicitly_wait(30)
 
     def test_add_user(self):
-        wd = self.wd
-        self.openHomePage(wd)
-        self.login(wd, LoginS(username="admin", password="secret"))
-        self.addNewUser(wd, UserfieldsName(firstname="Петров", middlename="Иван", lastname="Иванович", nickname="кличка"), \
+        self.openHomePage()
+        self.login(LoginS(username="admin", password="secret"))
+        self.addNewUser(UserfieldsName(firstname="Петров", middlename="Иван", lastname="Иванович", nickname="кличка"), \
                         UserAddress(title="title", company="comp", address="address", home="home", mobile="232323", work="232344354",\
                                     fax="232323", email="sd@test.com", email2="we@test.net", email3="wewd@t.er", homepage="http://ya.ru",\
                                     bday="23", bmonth="December", byear="1987", address2="jhdufyhdh", phone2="233443", notes="dfdjdj"))
-        self.logout(wd)
-    def addNewUser(self, wd, userfield, useraddress):
+        self.logout()
+    def addNewUser(self, userfield, useraddress):
+        wd = self.wd
         wd.find_element_by_link_text("add new").click()
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
@@ -62,7 +62,8 @@ class TestAddUser(unittest.TestCase):
         wd.find_element_by_link_text("home").click()
 
 
-    def login(self, wd, login):
+    def login(self, login):
+        wd = self.wd
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()
         wd.find_element_by_name("user").send_keys(login.username)
@@ -71,10 +72,12 @@ class TestAddUser(unittest.TestCase):
         wd.find_element_by_name("pass").send_keys(login.password)
         wd.find_element_by_xpath("//input[@value='Login']").click()
 
-    def openHomePage(self, wd):
+    def openHomePage(self):
+        wd = self.wd
         wd.get("http://localhost/addressbook/")
 
-    def logout(self, wd):
+    def logout(self):
+        wd = self.wd
         wd.find_element_by_link_text("Logout").click()
 
     def is_element_present(self, how, what):
