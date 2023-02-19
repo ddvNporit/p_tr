@@ -6,6 +6,7 @@ class GroupHelper():
         wd.find_element_by_link_text("group page").click()
     def create(self, group):
         wd = self.app.wd
+        self.app.group.open_groups_page()
         wd.find_element_by_name("new").click()
         wd.find_element_by_name("group_name").send_keys(group.name)
         wd.find_element_by_name("group_header").send_keys(group.header)
