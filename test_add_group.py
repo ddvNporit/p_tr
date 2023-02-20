@@ -12,31 +12,28 @@ class TestAddGroup(unittest.TestCase):
         options = Options()
         options.binary_location = r'C:\Program Files\Mozilla Firefox\firefox.exe'
         self.wd = webdriver.Firefox(executable_path=r'C:\Windows\SysWOW64\geckodriver.exe', options=options)
-        # self.wd = webdriver.Firefox()
         self.wd.implicitly_wait(30)
         self.wd
 
     def test_add_group(self):
         wd = self.wd
-        self.openHomePage(wd)
+        self.open_home_page(wd)
         self.login(wd, LoginS(username="admin", password="secret"))
-        # wd.find_element_by_name("searchform").click()
-        self.addNewGroup(wd, Group(name="fggf", header="dsfdffd", footer="вавпр"))
+        self.add_new_group(wd, Group(name="fggf", header="dsfdffd", footer="вавпр"))
         wd.find_element_by_link_text("groups").click()
         self.logout(wd)
     def test_add_empty_group(self):
         wd = self.wd
-        self.openHomePage(wd)
+        self.open_home_page(wd)
         self.login(wd, LoginS(username="admin", password="secret"))
-        # wd.find_element_by_name("searchform").click()
-        self.addNewGroup(wd, Group(name="", header="", footer=""))
+        self.add_new_group(wd, Group(name="", header="", footer=""))
         wd.find_element_by_link_text("groups").click()
         self.logout(wd)
 
     def logout(self, wd):
         wd.find_element_by_link_text("Logout").click()
 
-    def addNewGroup(self, wd, group):
+    def add_new_group(self, wd, group):
         wd.find_element_by_link_text("groups").click()
         wd.find_element_by_name("new").click()
         wd.find_element_by_name("group_name").click()
@@ -59,7 +56,7 @@ class TestAddGroup(unittest.TestCase):
         wd.find_element_by_name("pass").send_keys(login.password)
         wd.find_element_by_xpath("//input[@value='Login']").click()
 
-    def openHomePage(self, wd):
+    def open_home_page(self, wd):
         wd.get("http://localhost/addressbook/")
 
     def is_element_present(self, how, what):
