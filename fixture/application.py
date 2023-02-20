@@ -2,7 +2,7 @@
 from selenium import webdriver
 from fixture.session import SessionHelper
 from fixture.group import GroupHelper
-from fixture.userfield import UserFieldsHelper
+from fixture.user import UserFieldsHelper
 
 class Application:
     def __init__(self):

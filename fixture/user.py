@@ -41,3 +41,14 @@ class UserFieldsHelper():
         wd.find_element_by_name("notes").send_keys(userfield.notes)
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
         wd.find_element_by_link_text("home").click()
+    def delete_user(self):
+        wd = self.app.wd
+        self.open_users_page()
+        wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[2]/td/input").click()
+        self.accept_next_alert = True
+        wd.find_element_by_xpath("//input[@value='Delete']").click()
+        wd.switch_to.alert.accept()
+
+    def open_users_page(self):
+        wd = self.app.wd
+        wd.find_element_by_link_text("home").click()
