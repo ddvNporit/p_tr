@@ -2,7 +2,7 @@
 from model.userfield import UserfieldsName
 
 def test_add_user(app):
-    app.openHomePage()
+    app.open_home_page()
     app.session.login(username="admin", password="secret")
     app.user.add(UserfieldsName(firstname="Петров", middlename="Иван", lastname="Иванович", nickname="кличка", \
                                 title="title", company="comp", address="address", home="home", mobile="232323", work="232344354", \

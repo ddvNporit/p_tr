@@ -12,7 +12,7 @@ class Application:
         self.group = GroupHelper(self)
         self.user = UserFieldsHelper(self)
 
-    def openHomePage(self):
+    def open_home_page(self):
         wd = self.wd
         wd.get("http://localhost/addressbook/")
 
