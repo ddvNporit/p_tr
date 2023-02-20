@@ -5,7 +5,7 @@ import pytest
 
 @pytest.fixture()
 def app(request):
-    fixture =Application()
+    fixture = Application()
     request.addfinalizer(fixture.destoy)
     return fixture
 def test_add_group(app):
