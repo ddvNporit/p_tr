@@ -20,6 +20,7 @@ class Application:
         wd.find_element_by_name("group_footer").send_keys(group.footer)
         wd.find_element_by_name("submit").click()
         self.return_to_groups_page()
+
     
     def add_new_user(self, userfield):
         wd = self.wd
