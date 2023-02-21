@@ -15,11 +15,12 @@ class UserFieldsHelper():
     def open_users_page(self):
         wd = self.app.wd
         wd.find_element_by_link_text("home").click()
+
+    def select_user(self):
+        wd = self.app.wd
+        wd.find_element_by_xpath("//img[@alt='Edit']").click()
     def fill(self, userfield):
         wd = self.app.wd
-        # wd.find_element_by_link_text("home").click()
-        wd.find_element_by_xpath("//img[@alt='Edit']").click()
-        wd.find_element_by_link_text("add new").click()
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
         wd.find_element_by_name("firstname").send_keys(userfield.firstname)
@@ -32,27 +33,53 @@ class UserFieldsHelper():
         wd.find_element_by_name("nickname").click()
         wd.find_element_by_name("nickname").clear()
         wd.find_element_by_name("nickname").send_keys(userfield.nickname)
+        wd.find_element_by_name("title").click()
+        wd.find_element_by_name("title").clear()
         wd.find_element_by_name("title").send_keys(userfield.title)
+        wd.find_element_by_name("company").click()
+        wd.find_element_by_name("company").clear()
         wd.find_element_by_name("company").send_keys(userfield.company)
+        wd.find_element_by_name("address").clear()
         wd.find_element_by_name("address").send_keys(userfield.address)
+        wd.find_element_by_name("home").clear()
         wd.find_element_by_name("home").send_keys(userfield.home_phone)
+        wd.find_element_by_name("mobile").clear()
         wd.find_element_by_name("mobile").send_keys(userfield.mobile_phone)
+        wd.find_element_by_name("work").clear()
         wd.find_element_by_name("work").send_keys(userfield.work_phone)
+        wd.find_element_by_name("fax").clear()
         wd.find_element_by_name("fax").send_keys(userfield.fax)
+        wd.find_element_by_name("email").clear()
         wd.find_element_by_name("email").send_keys(userfield.email)
+        wd.find_element_by_name("email2").clear()
         wd.find_element_by_name("email2").send_keys(userfield.email2)
+        wd.find_element_by_name("email3").clear()
         wd.find_element_by_name("email3").send_keys(userfield.email3)
+        wd.find_element_by_name("homepage").clear()
         wd.find_element_by_name("homepage").send_keys(userfield.homepage)
         wd.find_element_by_name("bday").click()
-        # Select(wd.find_element_by_name("bday")).select_by_visible_text(userfield.bday)
         wd.find_element_by_xpath("//option[@value='" + userfield.bday + "']").click()
         wd.find_element_by_name("bmonth").click()
-        # Select(wd.find_element_by_name("bmonth")).select_by_visible_text(userfield.bmonth)
         wd.find_element_by_xpath("//option[@value='" + userfield.bmonth + "']").click()
+        wd.find_element_by_name("byear").clear()
         wd.find_element_by_name("byear").send_keys(userfield.byear)
-        wd.find_element_by_name("theform").click()
+        wd.find_element_by_name("address2").clear()
         wd.find_element_by_name("address2").send_keys(userfield.address2)
+        wd.find_element_by_name("phone2").clear()
         wd.find_element_by_name("phone2").send_keys(userfield.phone2)
+        wd.find_element_by_name("notes").clear()
         wd.find_element_by_name("notes").send_keys(userfield.notes)
+
+    def add(self):
+        wd = self.app.wd
+        wd.find_element_by_link_text("add new").click()
+
+    def add_user_submit(self):
+        wd = self.app.wd
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
+        wd.find_element_by_link_text("home").click()
+
+    def edit_user_submit(self):
+        wd = self.app.wd
+        wd.find_element_by_xpath("//div[@id='content']/form/input[22]").click()
         wd.find_element_by_link_text("home").click()

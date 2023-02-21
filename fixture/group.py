@@ -6,12 +6,27 @@ class GroupHelper():
         wd.find_element_by_link_text("group page").click()
     def fill(self, group):
         wd = self.app.wd
-        wd.find_element_by_name("new").click()
         wd.find_element_by_name("group_name").send_keys(group.name)
         wd.find_element_by_name("group_header").send_keys(group.header)
         wd.find_element_by_name("group_footer").send_keys(group.footer)
+
+    def add_group_submit(self):
+        wd = self.app.wd
         wd.find_element_by_name("submit").click()
         self.return_to_groups_page()
+
+    def edit_group_submit(self):
+        wd = self.app.wd
+        wd.find_element_by_name("update").click()
+        self.return_to_groups_page()
+
+    def new_group(self):
+        wd = self.app.wd
+        wd.find_element_by_name("new").click()
+    def edit_group(self):
+        wd = self.app.wd
+        wd.find_element_by_name("selected[]").click()
+        wd.find_element_by_name("edit").click()
 
     def open_groups_page(self):
         wd = self.app.wd
