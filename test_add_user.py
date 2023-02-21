@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from selenium import webdriver
-from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 from login import LoginS
@@ -17,7 +16,7 @@ class TestAddUser(unittest.TestCase):
         self.open_home_page(wd)
         self.login(wd, LoginS(username="admin", password="secret"))
         self.add_new_user(wd, UserfieldsName(firstname="Петров", middlename="Иван", lastname="Иванович", nickname="кличка", \
-                                             title="title", company="comp", address="address", home="home", mobile="232323", work="232344354", \
+                                             title="title", company="comp", address="address", home_phone="home", mobile_phone="232323", work_phone="232344354", \
                                              fax="232323", email="sd@test.com", email2="we@test.net", email3="wewd@t.er", homepage="http://ya.ru", \
                                              bday="25", bmonth="December", byear="1987", address2="jhdufyhdh", phone2="233443", notes="dfdjdj"))
         self.logout(wd)
@@ -38,19 +37,17 @@ class TestAddUser(unittest.TestCase):
         wd.find_element_by_name("title").send_keys(userfield.title)
         wd.find_element_by_name("company").send_keys(userfield.company)
         wd.find_element_by_name("address").send_keys(userfield.address)
-        wd.find_element_by_name("home").send_keys(userfield.home)
-        wd.find_element_by_name("mobile").send_keys(userfield.mobile)
-        wd.find_element_by_name("work").send_keys(userfield.work)
+        wd.find_element_by_name("home").send_keys(userfield.home_phone)
+        wd.find_element_by_name("mobile").send_keys(userfield.mobile_phone)
+        wd.find_element_by_name("work").send_keys(userfield.work_phone)
         wd.find_element_by_name("fax").send_keys(userfield.fax)
         wd.find_element_by_name("email").send_keys(userfield.email)
         wd.find_element_by_name("email2").send_keys(userfield.email2)
         wd.find_element_by_name("email3").send_keys(userfield.email3)
         wd.find_element_by_name("homepage").send_keys(userfield.homepage)
         wd.find_element_by_name("bday").click()
-        Select(wd.find_element_by_name("bday")).select_by_visible_text(userfield.bday)
         wd.find_element_by_xpath("//option[@value='" + userfield.bday + "']").click()
         wd.find_element_by_name("bmonth").click()
-        Select(wd.find_element_by_name("bmonth")).select_by_visible_text(userfield.bmonth)
         wd.find_element_by_xpath("//option[@value='" + userfield.bmonth + "']").click()
         wd.find_element_by_name("byear").send_keys(userfield.byear)
         wd.find_element_by_name("theform").click()
