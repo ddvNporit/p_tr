@@ -1,16 +1,16 @@
 class UserfieldsName:
-    def __init__(self, firstname, middlename, lastname, nickname, title, company,  address, home,\
-                 mobile, work, fax, email, email2, email3, homepage, bday, bmonth, byear, address2, phone2, notes):
+    def __init__(self, firstname, middlename, lastname, nickname, title, company, address, home_phone, \
+                 mobile_phone, work_phone, fax, email, email2, email3, homepage, bday, bmonth, byear, address2, phone2, notes):
         self.firstname = firstname
         self.middlename = middlename
         self.lastname = lastname
         self.nickname = nickname
         self.title = title
         self.company = company
-        self.home = home
+        self.home_phone = home_phone
         self.address = address
-        self.mobile = mobile
-        self.work = work
+        self.mobile_phone = mobile_phone
+        self.work_phone = work_phone
         self.fax = fax
         self.email = email
         self.email2 = email2
