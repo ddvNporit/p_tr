@@ -16,9 +16,10 @@ class UserFieldsHelper():
         self.click_addnew()
         self.fill(add_new_user)
         self.add_user_submit()
-        self.return_home_page(wd)
+        self.return_home_page()
 
-    def return_home_page(self, wd):
+    def return_home_page(self):
+        wd = self.app.wd
         wd.find_element_by_link_text("home").click()
 
     def open_users_page(self):
@@ -96,3 +97,10 @@ class UserFieldsHelper():
         wd = self.app.wd
         self.open_users_page()
         return len(wd.find_elements_by_name("selected[]"))
+    def modify_first_user(self, userfield):
+        self.open_users_page()
+        self.select_user()
+        self.fill(userfield)
+        self.edit_user_submit()
+        self.return_home_page()
+
