@@ -4,5 +4,9 @@ import pytest
 @pytest.fixture(scope = "session")
 def app(request):
     fixture =Application()
-    request.addfinalizer(fixture.destoy)
+    fixture.session.login(username="admin", password="secret")
+    def fin():
+        fixture.session.logout()
+        fixture.destoy()
+    request.addfinalizer(fin)
     return fixture
