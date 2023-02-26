@@ -11,6 +11,15 @@ class UserFieldsHelper():
         self.accept_next_alert = True
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to.alert.accept()
+    def create(self, add_new_user):
+        wd = self.app.wd
+        self.click_addnew()
+        self.fill(add_new_user)
+        self.add_user_submit()
+        self.return_home_page(wd)
+
+    def return_home_page(self, wd):
+        wd.find_element_by_link_text("home").click()
 
     def open_users_page(self):
         wd = self.app.wd
@@ -70,7 +79,7 @@ class UserFieldsHelper():
         wd.find_element_by_name("notes").clear()
         wd.find_element_by_name("notes").send_keys(userfield.notes)
 
-    def add(self):
+    def click_addnew(self):
         wd = self.app.wd
         wd.find_element_by_link_text("add new").click()
 
