@@ -2,15 +2,10 @@
 from model.group import Group
 
 def test_add_empty_group(app):
-    app.group.open_groups_page()
-    app.group.new_group()
-    app.group.fill_group_form(Group(name="", header="", footer=""))
-    app.group.add_group_submit()
+    app.group.create(Group(name="", header="", footer=""))
 
 def test_add_group(app):
-    app.group.open_groups_page()
-    app.group.new_group()
-    app.group.fill_group_form(Group(name="test add group name", header="test add group header", footer="test add group footer"))
-    app.group.add_group_submit()
+    app.group.create(Group(name="26-02", header="body", footer="new footer"))
+
 
 
