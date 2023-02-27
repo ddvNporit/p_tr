@@ -43,6 +43,8 @@ class UserFieldsHelper():
         wd.find_element_by_name("nickname").click()
         wd.find_element_by_name("nickname").clear()
         wd.find_element_by_name("nickname").send_keys(userfield.nickname)
+        if userfield.photo != "":
+            wd.find_element_by_name("photo").send_keys(userfield.photo)
         wd.find_element_by_name("title").click()
         wd.find_element_by_name("title").clear()
         wd.find_element_by_name("title").send_keys(userfield.title)
