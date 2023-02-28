@@ -2,7 +2,6 @@
 from model.userfield import UserfieldsName
 
 def test_add_user(app):
-
     app.user.create(UserfieldsName(firstname="1 test add Петров", middlename="test add Иван", lastname="777 test add Иванович", nickname="кличка",\
                                    photo="D:\\PycharmProjects\\p_tr\\test\\placeimg_1000_459_arch.png", \
                                    title="title", company="comp", address="address", home_phone="home", mobile_phone="232323", work_phone="232344354", \
