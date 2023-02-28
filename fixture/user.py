@@ -24,7 +24,8 @@ class UserFieldsHelper():
 
     def open_users_page(self):
         wd = self.app.wd
-        wd.find_element_by_link_text("home").click()
+        if not (wd.current_url == "http://localhost/addressbook/"):
+            wd.find_element_by_link_text("home").click()
 
     def select_user(self):
         wd = self.app.wd
@@ -89,12 +90,10 @@ class UserFieldsHelper():
     def add_user_submit(self):
         wd = self.app.wd
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
-        wd.find_element_by_link_text("home").click()
 
     def edit_user_submit(self):
         wd = self.app.wd
         wd.find_element_by_xpath("//div[@id='content']/form/input[22]").click()
-        wd.find_element_by_link_text("home").click()
     def count(self):
         wd = self.app.wd
         self.open_users_page()
