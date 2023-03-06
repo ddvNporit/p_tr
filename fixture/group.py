@@ -2,10 +2,12 @@ from model.group import Group
 class GroupHelper():
     def __init__(self, app):
         self.app = app
-    def modify_first_group(self, new_group_data):
+    def modify_first_group(self):
+        self.modify_group_by_index(0)
+    def modify_group_by_index(self,index, new_group_data):
         wd = self.app.wd
         self.open_groups_page()
-        self.select_first_group()
+        self.select_group_by_index(index)
         # open modify group form
         self.edit_group()
         # fill group form
@@ -60,19 +62,31 @@ class GroupHelper():
         wd = self.app.wd
         wd.find_element_by_name("selected[]").click()
 
+    def select_group_by_index(self, index):
+        wd = self.app.wd
+        wd.find_elements_by_name("selected[]")[index].click()
+
     def open_groups_page(self):
         wd = self.app.wd
         if not(wd.current_url.endswith("/group.php") and len(wd.find_elements_by_name("new"))>0):
             wd.find_element_by_link_text("groups").click()
+
     def delete_group(self):
+        self.delete_group_by_index(0)
+    def delete_group_by_index(self, index):
         wd = self.app.wd
         self.open_groups_page()
-        # select first group
-        wd.find_element_by_name("selected[]").click()
+        self.select_group_by_index(index)
         # submit deletion
         wd.find_element_by_name("delete").click()
         self.return_to_groups_page()
         self.group_cache = None
+
+    def select_first_group(self):
+        wd = self.app.wd
+        # select first group
+        wd.find_element_by_name("selected[]").click()
+
     def count(self):
         wd = self.app.wd
         self.open_groups_page()
