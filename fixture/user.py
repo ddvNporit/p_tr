@@ -98,8 +98,10 @@ class UserFieldsHelper():
 
     def select_user_modify_by_index(self, index):
         wd = self.app.wd
-        url = "edit.php?id=" + str(index)
-        wd.find_element_by_xpath("//img[@alt='Edit']").click()
+        id = wd.find_element_by_name("selected[]").get_attribute("value")
+        # wd.find_element_by_xpath("//img[@alt='Edit']").click()
+        wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[*]/td[8]/a[@href='edit.php?id=" + str(id) + "']").click()
+
     def modify_user_by_index(self, index,  userfield):
         self.open_users_page()
         self.select_user_modify_by_index(index)
