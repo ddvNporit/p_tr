@@ -13,3 +13,5 @@ def test_edit_user(app):
     new_users = app.user.get_user_list()
     old_users[0] = user
     assert len(old_users) == len(new_users)
+    assert sorted(old_users, key=UserfieldsName.id_or_max) == sorted(new_users, key=UserfieldsName.id_or_max)
+

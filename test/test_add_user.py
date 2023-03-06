@@ -12,6 +12,9 @@ def test_add_user(app):
     app.user.create(user)
     new_users = app.user.get_user_list()
     assert len(old_users) + 1 == len(new_users)
+    old_users.append(user)
+    assert sorted(old_users, key=UserfieldsName.id_or_max) == sorted(new_users, key=UserfieldsName.id_or_max)
+
 
 
 
