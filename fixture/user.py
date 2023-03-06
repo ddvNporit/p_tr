@@ -12,12 +12,14 @@ class UserFieldsHelper():
         self.accept_next_alert = True
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to.alert.accept()
+        self.user_cache = None
     def create(self, add_new_user):
         wd = self.app.wd
         self.click_addnew()
         self.fill(add_new_user)
         self.add_user_submit()
         self.return_home_page()
+        self.user_cache = None
 
     def return_home_page(self):
         wd = self.app.wd
@@ -90,19 +92,20 @@ class UserFieldsHelper():
         self.fill(userfield)
         self.edit_user_submit()
         self.return_home_page()
+        self.user_cache = None
 
+    user_cache = None
     def get_user_list(self):
-        wd = self.app.wd
-        self.open_users_page()
-        users = []
-        for element in wd.find_elements_by_xpath("// tr[@name = 'entry']"):
-            lastname = element.find_element_by_xpath("./td[2]").text
-            firstname = element.find_element_by_xpath("./td[3]").text
-
-            # firstname = element.find_element_by_xpath("//*[@name='entry']/td[3]").text
-            id = element.find_element_by_name("selected[]").get_attribute("value")
-            users.append(UserfieldsName(firstname=firstname, lastname=lastname, id=id))
-        return users
+        if self.user_cache is None:
+            wd = self.app.wd
+            self.open_users_page()
+            self.user_cache = []
+            for element in wd.find_elements_by_xpath("// tr[@name = 'entry']"):
+                lastname = element.find_element_by_xpath("./td[2]").text
+                firstname = element.find_element_by_xpath("./td[3]").text
+                id = element.find_element_by_name("selected[]").get_attribute("value")
+                self.user_cache.append(UserfieldsName(firstname=firstname, lastname=lastname, id=id))
+        return list(self.user_cache)
 
 
 
