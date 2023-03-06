@@ -3,16 +3,22 @@ from selenium.webdriver.support.ui import Select
 class UserFieldsHelper():
     def __init__(self, app):
         self.app = app
-
-
     def delete_user(self):
+        self.delete_user_by_index(0)
+
+    def delete_user_by_index(self, index):
         wd = self.app.wd
         self.open_users_page()
-        wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[2]/td/input").click()
+        self.select_user_by_index(index)
         self.accept_next_alert = True
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to.alert.accept()
         self.user_cache = None
+
+    def select_user_by_index(self, index):
+        wd = self.app.wd
+        wd.find_elements_by_name("selected[]")[index].click()
+
     def create(self, add_new_user):
         wd = self.app.wd
         self.click_addnew()
@@ -86,9 +92,17 @@ class UserFieldsHelper():
         wd = self.app.wd
         self.open_users_page()
         return len(wd.find_elements_by_name("selected[]"))
+
     def modify_first_user(self, userfield):
+        self.modify_user_by_index(0,  userfield)
+
+    def select_user_modify_by_index(self, index):
+        wd = self.app.wd
+        url = "edit.php?id=" + str(index)
+        wd.find_element_by_xpath("//img[@alt='Edit']").click()
+    def modify_user_by_index(self, index,  userfield):
         self.open_users_page()
-        self.select_user()
+        self.select_user_modify_by_index(index)
         self.fill(userfield)
         self.edit_user_submit()
         self.return_home_page()

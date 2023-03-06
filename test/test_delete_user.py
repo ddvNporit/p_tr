@@ -1,4 +1,5 @@
 from model.userfield import UserfieldsName
+from random import randrange
 import time
 
 
@@ -9,11 +10,12 @@ def test_delete_first_user(app):
                                 fax="232323", email="sd@test.com", email2="we@test.net", email3="wewd@t.er", homepage="http://ya.ru", \
                                 bday="23", bmonth="December", byear="1987", address2="jhdufyhdh", phone2="233443", notes="test add dfdjdj"))
     old_users = app.user.get_user_list()
-    app.user.delete_user()
+    index = randrange(len(old_users))
+    app.user.delete_user_by_index(index)
     time.sleep(5)
     new_users = app.user.get_user_list()
     assert len(old_users) - 1 == app.user.count()
-    old_users[0:1] = []
+    old_users[index:index + 1] = []
     assert old_users == new_users
 
 
