@@ -98,11 +98,11 @@ class UserFieldsHelper():
 
     def select_user_modify_by_index(self, index):
         wd = self.app.wd
-        id = wd.find_element_by_name("selected[]").get_attribute("value")
+        id = wd.find_elements_by_name("selected[]")[index].get_attribute("value")
         # wd.find_element_by_xpath("//img[@alt='Edit']").click()
         wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[*]/td[8]/a[@href='edit.php?id=" + str(id) + "']").click()
 
-    def modify_user_by_index(self, index,  userfield):
+    def modify_user_by_index(self, index, userfield):
         self.open_users_page()
         self.select_user_modify_by_index(index)
         self.fill(userfield)
@@ -120,7 +120,7 @@ class UserFieldsHelper():
                 lastname = element.find_element_by_xpath("./td[2]").text
                 firstname = element.find_element_by_xpath("./td[3]").text
                 id = element.find_element_by_name("selected[]").get_attribute("value")
-                self.user_cache.append(UserfieldsName(firstname=firstname, lastname=lastname, id=id))
+                self.user_cache.append(UserfieldsName(lastname=lastname, firstname=firstname, id=id))
         return list(self.user_cache)
 
 
