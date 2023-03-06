@@ -12,7 +12,7 @@ def test_add_user(app):
     app.user.create(user)
     new_users = app.user.get_user_list()
     assert len(old_users) + 1 == len(new_users)
-    print(str(old_users))
+
 
 
 

@@ -1,4 +1,5 @@
 from model.userfield import UserfieldsName
+from selenium.webdriver.support.ui import Select
 class UserFieldsHelper():
     def __init__(self, app):
         self.app = app
@@ -36,6 +37,11 @@ class UserFieldsHelper():
             wd.find_element_by_name(element_name).click()
             wd.find_element_by_name(element_name).clear()
             wd.find_element_by_name(element_name).send_keys(value)
+
+    def dropdown_field_value(self, element_name, value):
+        wd = self.app.wd
+        if value is not None:
+            Select(wd.find_element_by_name(element_name)).select_by_visible_text(value)
     def fill(self, userfield):
         self.input_field_value("firstname", userfield.firstname)
         self.input_field_value("middlename", userfield.middlename)
@@ -54,9 +60,9 @@ class UserFieldsHelper():
         self.input_field_value("email2", userfield.email2)
         self.input_field_value("email3", userfield.email3)
         self.input_field_value("homepage", userfield.homepage)
-        self.input_field_value("bday", userfield.bday)
+        self.dropdown_field_value("bday", userfield.bday)
         # wd.find_element_by_xpath("//option[@value='" + userfield.bday + "']").click()
-        self.input_field_value("bday", userfield.bday)
+        self.dropdown_field_value("bday", userfield.bday)
         # wd.find_element_by_xpath("//option[@value='" + userfield.bmonth + "']").click()
         self.input_field_value("byear", userfield.byear)
         self.input_field_value("address2", userfield.address2)
@@ -90,8 +96,10 @@ class UserFieldsHelper():
         self.open_users_page()
         users = []
         for element in wd.find_elements_by_xpath("// tr[@name = 'entry']"):
-            lastname = element.find_element_by_xpath("//*[@name='entry']/td[2]").text
-            firstname = element.find_element_by_xpath("//*[@name='entry']/td[3]").text
+            lastname = element.find_element_by_xpath("./td[2]").text
+            firstname = element.find_element_by_xpath("./td[3]").text
+
+            # firstname = element.find_element_by_xpath("//*[@name='entry']/td[3]").text
             id = element.find_element_by_name("selected[]").get_attribute("value")
             users.append(UserfieldsName(firstname=firstname, lastname=lastname, id=id))
         return users
