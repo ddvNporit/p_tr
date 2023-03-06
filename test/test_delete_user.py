@@ -12,7 +12,7 @@ def test_delete_first_user(app):
     app.user.delete_user()
     time.sleep(5)
     new_users = app.user.get_user_list()
-    assert len(old_users) - 1 == len(new_users)
+    assert len(old_users) - 1 == app.user.count()
     old_users[0:1] = []
     assert old_users == new_users
 
