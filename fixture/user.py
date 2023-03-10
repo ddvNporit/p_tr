@@ -122,6 +122,24 @@ class UserFieldsHelper():
                 id = element.find_element_by_name("selected[]").get_attribute("value")
                 self.user_cache.append(UserfieldsName(lastname=lastname, firstname=firstname, id=id))
         return list(self.user_cache)
+    def open_contact_to_edit_by_index(self, index):
+        pass
+
+    def get_contact_info_from_edit_page(self, index):
+        wd = self.app.wd
+        self.select_user_modify_by_index(index)
+        firstname = wd.find_element_by_name("firstname").get_attribute("value")
+        lastname = wd.find_element_by_name("lastname").get_attribute("value")
+        id = wd.find_element_by_name("id").get_attribute("value")
+        homephone = wd.find_element_by_name("home").get_attribute("value")
+        workphone = wd.find_element_by_name("work").get_attribute("value")
+        mobilephone = wd.find_element_by_name("mobile").get_attribute("value")
+        secondaryphone = wd.find_element_by_name("phone2").get_attribute("value")
+        return UserfieldsName(firstname=firstname, lastname=lastname, id=id, homephone=homephone,\
+                       workphone=workphone, mobilephone=mobilephone, secondaryphone=secondaryphone)
+
+
+
 
 
 
