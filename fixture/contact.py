@@ -131,10 +131,9 @@ class UserFieldsHelper():
                 # firstname=cell[1].text
                 firstname = element.find_element_by_xpath("./td[3]").text
                 id = element.find_element_by_name("selected[]").get_attribute("value")
-                all_phones = cells[5].text.splitlines()
+                all_phones = cells[5].text
                 self.user_cache.append(Contact(lastname=lastname, firstname=firstname, id=id,
-                                               home_phone=all_phones[0], mobile_phone=all_phones[1],
-                                               work_phone=all_phones[2], phone2=all_phones[3]))
+                                               all_phones_from_home_page=all_phones))
         return list(self.user_cache)
 
     def open_contact_to_edit_by_index(self, index):
@@ -149,6 +148,7 @@ class UserFieldsHelper():
         id = wd.find_elements_by_name("selected[]")[index].get_attribute("value")
         wd.find_element_by_xpath(
             "//table[@id='maintable']/tbody/tr[*]/td[7]/a[@href='view.php?id=" + str(id) + "']").click()
+
     def get_contact_info_from_edit_page(self, index):
         wd = self.app.wd
         self.open_users_page()
