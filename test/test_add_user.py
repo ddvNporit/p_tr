@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from model.userfield import Contact
+from model.contact import Contact
 
 def test_add_user(app):
     old_users = app.contact.get_user_list()

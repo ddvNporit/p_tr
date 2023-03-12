@@ -1,4 +1,4 @@
-from model.userfield import Contact
+from model.contact import Contact
 from random import randrange
 import time
 

@@ -1,8 +1,13 @@
+# import cells as cells
+
 from model.contact import Contact
 from selenium.webdriver.support.ui import Select
+
+
 class UserFieldsHelper():
     def __init__(self, app):
         self.app = app
+
     def delete_user(self):
         self.delete_user_by_index(0)
 
@@ -39,6 +44,7 @@ class UserFieldsHelper():
     def select_user(self):
         wd = self.app.wd
         wd.find_element_by_xpath("//img[@alt='Edit']").click()
+
     def input_field_value(self, element_name, value):
         wd = self.app.wd
         if value is not None:
@@ -50,6 +56,7 @@ class UserFieldsHelper():
         wd = self.app.wd
         if value is not None:
             Select(wd.find_element_by_name(element_name)).select_by_visible_text(value)
+
     def fill(self, userfield):
         self.input_field_value("firstname", userfield.firstname)
         self.input_field_value("middlename", userfield.middlename)
@@ -88,19 +95,21 @@ class UserFieldsHelper():
     def edit_user_submit(self):
         wd = self.app.wd
         wd.find_element_by_xpath("//div[@id='content']/form/input[22]").click()
+
     def count(self):
         wd = self.app.wd
         self.open_users_page()
         return len(wd.find_elements_by_name("selected[]"))
 
     def modify_first_user(self, userfield):
-        self.modify_user_by_index(0,  userfield)
+        self.modify_user_by_index(0, userfield)
 
     def select_user_modify_by_index(self, index):
         wd = self.app.wd
         id = wd.find_elements_by_name("selected[]")[index].get_attribute("value")
         # wd.find_element_by_xpath("//img[@alt='Edit']").click()
-        wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[*]/td[8]/a[@href='edit.php?id=" + str(id) + "']").click()
+        wd.find_element_by_xpath(
+            "//table[@id='maintable']/tbody/tr[*]/td[8]/a[@href='edit.php?id=" + str(id) + "']").click()
 
     def modify_user_by_index(self, index, userfield):
         self.open_users_page()
@@ -111,17 +120,36 @@ class UserFieldsHelper():
         self.user_cache = None
 
     user_cache = None
+
     def get_user_list(self):
         if self.user_cache is None:
             wd = self.app.wd
             self.open_users_page()
             self.user_cache = []
             for element in wd.find_elements_by_xpath("// tr[@name = 'entry']"):
+                cells = element.find_elements_by_tag_name("td")
                 lastname = element.find_element_by_xpath("./td[2]").text
+                #firstname=cell[1].text
                 firstname = element.find_element_by_xpath("./td[3]").text
                 id = element.find_element_by_name("selected[]").get_attribute("value")
-                self.user_cache.append(Contact(lastname=lastname, firstname=firstname, id=id))
+                all_phones = cells[5].text.splitlines()
+                self.user_cache.append(Contact(lastname=lastname, firstname=firstname, id=id,
+                                               home_phone=all_phones[0], mobile_phone=all_phones[1],
+                                               work_phone=all_phones[2], phone2=all_phones[3]))
         return list(self.user_cache)
 
+    def open_contact_to_edit_by_index(self, index):
+        pass
 
-
+    def get_contact_info_from_edit_page(self, index):
+        wd = self.app.wd
+        self.select_user_modify_by_index(index)
+        firstname = wd.find_element_by_name("firstname").get_attribute("value")
+        lastname = wd.find_element_by_name("lastname").get_attribute("value")
+        id = wd.find_element_by_name("id").get_attribute("value")
+        homephone = wd.find_element_by_name("home").get_attribute("value")
+        workphone = wd.find_element_by_name("work").get_attribute("value")
+        mobilephone = wd.find_element_by_name("mobile").get_attribute("value")
+        secondaryphone = wd.find_element_by_name("phone2").get_attribute("value")
+        return Contact(firstname=firstname, lastname=lastname, id=id, home_phone=homephone,
+                       work_phone=workphone, mobile_phone=mobilephone, phone2=secondaryphone)
