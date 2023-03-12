@@ -1,5 +1,5 @@
 from sys import maxsize
-class UserfieldsName:
+class Contact:
     def __init__(self, firstname=None, middlename=None, lastname=None, nickname=None, photo=None, title=None, company=None, address=None, home_phone=None, \
                  mobile_phone=None, work_phone=None, fax=None, email=None, email2=None, email3=None, homepage=None, bday=None, bmonth=None, byear=None,\
                  address2=None, phone2=None, notes=None, id=None):

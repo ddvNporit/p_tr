@@ -10,7 +10,7 @@ class Application:
         self.wd.implicitly_wait(5)
         self.session = SessionHelper(self)
         self.group = GroupHelper(self)
-        self.user = UserFieldsHelper(self)
+        self.contact = UserFieldsHelper(self)
     def is_valid(self):
         try:
             self.wd.current_url

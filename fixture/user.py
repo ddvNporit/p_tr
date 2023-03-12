@@ -1,4 +1,4 @@
-from model.userfield import UserfieldsName
+from model.userfield import Contact
 from selenium.webdriver.support.ui import Select
 class UserFieldsHelper():
     def __init__(self, app):
@@ -120,7 +120,7 @@ class UserFieldsHelper():
                 lastname = element.find_element_by_xpath("./td[2]").text
                 firstname = element.find_element_by_xpath("./td[3]").text
                 id = element.find_element_by_name("selected[]").get_attribute("value")
-                self.user_cache.append(UserfieldsName(lastname=lastname, firstname=firstname, id=id))
+                self.user_cache.append(Contact(lastname=lastname, firstname=firstname, id=id))
         return list(self.user_cache)
 
 
