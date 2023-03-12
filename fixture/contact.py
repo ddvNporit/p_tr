@@ -120,7 +120,7 @@ class UserFieldsHelper():
 
     user_cache = None
 
-    def get_user_list(self):
+    def get_contact_list(self):
         if self.user_cache is None:
             wd = self.app.wd
             self.open_users_page()
