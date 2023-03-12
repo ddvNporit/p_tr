@@ -61,8 +61,8 @@ class UserFieldsHelper():
         self.input_field_value("middlename", userfield.middlename)
         self.input_field_value("lastname", userfield.lastname)
         self.input_field_value("nickname", userfield.nickname)
-        if userfield.photo != "":
-            self.input_field_value("photo", userfield.photo)
+        # if userfield.photo != "":
+        #     self.input_field_value("photo", userfield.photo)
         self.input_field_value("title", userfield.title)
         self.input_field_value("company", userfield.company)
         self.input_field_value("address", userfield.address)
