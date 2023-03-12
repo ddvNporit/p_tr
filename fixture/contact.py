@@ -130,10 +130,15 @@ class UserFieldsHelper():
                 lastname = element.find_element_by_xpath("./td[2]").text
                 # firstname=cell[1].text
                 firstname = element.find_element_by_xpath("./td[3]").text
+                address = element.find_element_by_xpath("./td[4]").text
                 id = element.find_element_by_name("selected[]").get_attribute("value")
                 all_phones = cells[5].text
+                all_names = firstname + '\n' + lastname
+                all_emails = cells[4].text
                 self.user_cache.append(Contact(lastname=lastname, firstname=firstname, id=id,
-                                               all_phones_from_home_page=all_phones))
+                                               all_phones_from_home_page=all_phones,
+                                               all_names_from_home_page=all_names, address=address,
+                                               all_emails_from_home_page=all_emails))
         return list(self.user_cache)
 
     def open_contact_to_edit_by_index(self, index):
@@ -160,8 +165,13 @@ class UserFieldsHelper():
         workphone = wd.find_element_by_name("work").get_attribute("value")
         mobilephone = wd.find_element_by_name("mobile").get_attribute("value")
         secondaryphone = wd.find_element_by_name("phone2").get_attribute("value")
+        address = wd.find_element_by_name("address").get_attribute("value")
+        email = wd.find_element_by_name("email").get_attribute("value")
+        email2 = wd.find_element_by_name("email2").get_attribute("value")
+        email3 = wd.find_element_by_name("email3").get_attribute("value")
         return Contact(firstname=firstname, lastname=lastname, id=id, home_phone=homephone,
-                       work_phone=workphone, mobile_phone=mobilephone, phone2=secondaryphone)
+                       work_phone=workphone, mobile_phone=mobilephone, phone2=secondaryphone, address=address,
+                       email=email, email2=email2, email3=email3)
 
     def get_contact_view_page(self, index):
         wd = self.app.wd
