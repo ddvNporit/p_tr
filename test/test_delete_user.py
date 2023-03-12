@@ -12,7 +12,7 @@ def test_delete_first_user(app):
     old_users = app.contact.get_user_list()
     index = randrange(len(old_users))
     app.contact.delete_user_by_index(index)
-    time.sleep(5)
+    time.sleep(2)
     new_users = app.contact.get_user_list()
     assert len(old_users) - 1 == app.contact.count()
     old_users[index:index + 1] = []
