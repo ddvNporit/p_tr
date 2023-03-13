@@ -5,7 +5,7 @@ import pytest, random, string
 
 def random_string(prefix, maxlen):
     # symbols = string.ascii_letters + string.digits + string.punctuation + " " * 10
-    symbols = string.ascii_letters + string.digits + " " * 10
+    symbols = string.ascii_letters + string.digits + " "
     return prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
 
 
@@ -33,24 +33,24 @@ def random_for_month():
 testdata = [Contact(firstname=random_string("firstname", 10).strip(),
                     middlename=random_string("middlename", 10).strip(),
                     lastname=random_string("lastname", 10).strip(),
-                    nickname=random_string("nickname", 10),
-                    title=random_string("title", 10),
-                    company=random_string("company", 10),
-                    address=random_string("address", 10),
-                    home_phone=random_digits_for_phone(12),
-                    mobile_phone=random_digits_for_phone(12),
-                    work_phone=random_digits_for_phone(12),
-                    fax=random_digits_for_phone(12),
-                    email=random_for_email(30),
-                    email2=random_for_email(30),
-                    email3=random_for_email(30),
-                    homepage=random_for_http(100),
+                    nickname=random_string("nickname", 10).strip(),
+                    title=random_string("title", 10).strip(),
+                    company=random_string("company", 10).strip(),
+                    address=random_string("address", 10).strip(),
+                    home_phone=random_digits_for_phone(12).strip(),
+                    mobile_phone=random_digits_for_phone(12).strip(),
+                    work_phone=random_digits_for_phone(12).strip(),
+                    fax=random_digits_for_phone(12).strip(),
+                    email=random_for_email(30).strip(),
+                    email2=random_for_email(30).strip(),
+                    email3=random_for_email(30).strip(),
+                    homepage=random_for_http(100).strip(),
                     bday=str(random.randint(1, 28)),
                     bmonth=random_for_month(),
                     byear=str(random.randint(1930, 3028)),
-                    address2=random_string("address2 ", 10),
+                    address2=random_string("address2 ", 10).strip(),
                     phone2=random_digits_for_phone(12),
-                    notes=random_string("notes ", 10)
+                    notes=random_string("notes ", 10).strip()
 
                     # for firstname in ["", random_string("firstname", 10)]
                     # for middlename in ["", random_string("middlename", 10)]

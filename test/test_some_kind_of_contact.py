@@ -28,7 +28,7 @@ def test_of_any_contact(app):
     assert contact_from_home_page.all_names_from_home_page == merge_fields_like_on_home_page(
         [contact_from_edit_page.firstname, contact_from_edit_page.lastname])
     assert contact_from_home_page.address == contact_from_edit_page.address
-    assert contact_from_home_page.all_emails_from_home_page == merge_fields_like_on_home_page(
+    assert contact_from_home_page.all_emails_from_home_page == merge_fields_like_on_home_page_email(
         [contact_from_edit_page.email,
          contact_from_edit_page.email2,
          contact_from_edit_page.email3])
@@ -42,3 +42,15 @@ def merge_fields_like_on_home_page(contact):
     return "\n".join(filter(lambda x: x != "",
                             map(lambda x: clear(x),
                                 filter(lambda x: x is not None, contact))))
+
+
+def c_new_str(s):
+    if s is None:
+        out = ""
+    else:
+        out = s
+    return out.strip()
+
+
+def merge_fields_like_on_home_page_email(contact):
+    return "\n".join(filter(lambda x: x.strip() != "", map(lambda x: c_new_str(x),  contact)))
