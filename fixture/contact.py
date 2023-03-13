@@ -179,9 +179,21 @@ class UserFieldsHelper():
         self.open_users_page()
         self.open_contact_view_by_index(index)
         text = wd.find_element_by_id("content").text
-        homephone = re.search("H: (.*)", text).group(1)
-        workphone = re.search("W: (.*)", text).group(1)
-        mobilephone = re.search("M: (.*)", text).group(1)
-        secondaryphone = re.search("P: (.*)", text).group(1)
+        try:
+            homephone = re.search("H: (.*)", text).group(1)
+        except:
+            homephone = ""
+        try:
+            workphone = re.search("W: (.*)", text).group(1)
+        except:
+            workphone = ""
+        try:
+            mobilephone = re.search("M: (.*)", text).group(1)
+        except:
+            mobilephone = ""
+        try:
+            secondaryphone = re.search("P: (.*)", text).group(1)
+        except:
+            secondaryphone = ""
         return Contact(home_phone=homephone,
                        work_phone=workphone, mobile_phone=mobilephone, phone2=secondaryphone)

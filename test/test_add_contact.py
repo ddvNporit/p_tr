@@ -30,9 +30,9 @@ def random_for_month():
     return list_month[random_index]
 
 
-testdata = [Contact(firstname=random_string("firstname", 10),
-                    middlename=random_string("middlename", 10),
-                    lastname=random_string("lastname", 10),
+testdata = [Contact(firstname=random_string("firstname", 10).strip(),
+                    middlename=random_string("middlename", 10).strip(),
+                    lastname=random_string("lastname", 10).strip(),
                     nickname=random_string("nickname", 10),
                     title=random_string("title", 10),
                     company=random_string("company", 10),
