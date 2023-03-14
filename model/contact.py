@@ -8,7 +8,7 @@ class Contact:
                  homepage=None,
                  bday=None, bmonth=None, byear=None, \
                  address2=None, notes=None, id=None,
-                 all_phones_from_home_page=None, all_names_from_home_page=None, all_emails_from_home_page=None):
+                 all_phones_from_home_page=None, all_emails_from_home_page=None):
         self.firstname = firstname
         self.middlename = middlename
         self.lastname = lastname
@@ -33,7 +33,6 @@ class Contact:
         self.notes = notes
         self.id = id
         self.all_phones_from_home_page = all_phones_from_home_page
-        self.all_names_from_home_page = all_names_from_home_page
         self.all_emails_from_home_page = all_emails_from_home_page
 
     def __repr__(self):

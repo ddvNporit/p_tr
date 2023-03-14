@@ -25,9 +25,9 @@ def test_of_any_contact(app):
          contact_from_edit_page.mobile_phone,
          contact_from_edit_page.work_phone,
          contact_from_edit_page.phone2])
-    assert contact_from_home_page.all_names_from_home_page == merge_fields_like_on_home_page(
-        [contact_from_edit_page.firstname, contact_from_edit_page.lastname])
-    assert contact_from_home_page.address == contact_from_edit_page.address
+    assert contact_from_home_page.firstname.strip() == contact_from_edit_page.firstname.strip()
+    assert contact_from_home_page.lastname.strip() == contact_from_edit_page.lastname.strip()
+    assert contact_from_home_page.address.strip() == contact_from_edit_page.address.strip()
     assert contact_from_home_page.all_emails_from_home_page == merge_fields_like_on_home_page_email(
         [contact_from_edit_page.email,
          contact_from_edit_page.email2,

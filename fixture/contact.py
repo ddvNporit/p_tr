@@ -134,11 +134,9 @@ class UserFieldsHelper():
                 address = element.find_element_by_xpath("./td[4]").text
                 id = element.find_element_by_name("selected[]").get_attribute("value")
                 all_phones = cells[5].text
-                all_names = firstname + '\n' + lastname
                 all_emails = cells[4].text
                 self.user_cache.append(Contact(lastname=lastname, firstname=firstname, id=id,
-                                               all_phones_from_home_page=all_phones,
-                                               all_names_from_home_page=all_names, address=address,
+                                               all_phones_from_home_page=all_phones, address=address,
                                                all_emails_from_home_page=all_emails))
         return list(self.user_cache)
 
