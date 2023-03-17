@@ -38,7 +38,8 @@ def random_for_http(maxlen):
 
 
 def random_for_month():
-    list_month = ["December", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November" ]
+    list_month = ["December", "January", "February", "March", "April", "May", "June", "July", "August", "September",
+                  "October", "November"]
     random_index = random.randint(0, len(list_month) - 1)
     return list_month[random_index]
 
