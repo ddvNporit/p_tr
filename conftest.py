@@ -32,8 +32,6 @@ def stop(request):
 
 def pytest_addoption(parser):
     parser.addoption("--browser", action="store", default="firefox")
-    # parser.addoption("--baseUrl", action="store", default="http://localhost/addressbook/")
-    # parser.addoption("--pass", action="store", default="secret")  # можно default удалить, ноя для удобства не стал
     parser.addoption("--target", action="store", default="target.json")
 
 

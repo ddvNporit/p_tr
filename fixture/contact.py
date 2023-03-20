@@ -37,7 +37,7 @@ class UserFieldsHelper():
 
     def open_users_page(self):
         wd = self.app.wd
-        if not (wd.current_url == "http://localhost/addressbook/"):
+        if not (wd.current_url == self.app.base_url):
             wd.find_element_by_link_text("home").click()
 
     def select_user(self):
