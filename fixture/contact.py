@@ -2,7 +2,7 @@ from model.contact import Contact
 from selenium.webdriver.support.ui import Select
 import re
 
-
+# -*- coding: utf-8 -*-
 class UserFieldsHelper():
     def __init__(self, app):
         self.app = app
