@@ -2,15 +2,16 @@ from model.contact import Contact
 from selenium.webdriver.support.ui import Select
 import re
 
+
 # -*- coding: utf-8 -*-
 class UserFieldsHelper():
     def __init__(self, app):
         self.app = app
 
     def delete_user(self):
-        self.delete_user_by_index(0)
+        self.delete_contact_by_index(0)
 
-    def delete_user_by_index(self, index):
+    def delete_contact_by_index(self, index):
         wd = self.app.wd
         self.open_users_page()
         self.select_user_by_index(index)
@@ -21,7 +22,8 @@ class UserFieldsHelper():
 
     def select_user_by_index(self, index):
         wd = self.app.wd
-        wd.find_elements_by_name("selected[]")[index].click()
+        # wd.find_elements_by_name("selected[]")[index].click()
+        wd.find_element_by_xpath("//input[@value='" + index + "']").click()
 
     def create(self, add_new_user):
         wd = self.app.wd
