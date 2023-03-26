@@ -112,7 +112,7 @@ class UserFieldsHelper():
         return len(wd.find_elements_by_name("selected[]"))
 
     def modify_first_user(self, userfield):
-        self.modify_user_by_index(0, userfield)
+        self.modify_contact_by_index(0, userfield, )
 
     def select_user_modify_by_index(self, index):
         wd = self.app.wd
@@ -120,7 +120,7 @@ class UserFieldsHelper():
         # wd.find_element_by_xpath("//img[@alt='Edit']").click()
         wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[*]/td[8]/a[@href='edit.php?id=" + str(id) + "']").click()
 
-    def modify_user_by_index(self, index, userfield, check_ui):
+    def modify_contact_by_index(self, index, userfield, check_ui):
         self.open_users_page()
         if check_ui:
             self.select_user_modify_by_index(index)
