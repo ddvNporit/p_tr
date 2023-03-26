@@ -23,7 +23,6 @@ def test_modify_group_name(app, db, json_groups, check_ui):
         app.group.modify_group_by_index(db_group_selected.id, group, check_ui)
         new_groups = db.get_group_list()
         i = 0
-        # old_groups = map(lambda x: x.id == db_group_selected.id, [group.id, group.name, group.header, group.footer])
         while i < len(old_groups):
             if old_groups[i].id == db_group_selected.id:
                 old_groups[i].name = group.name
