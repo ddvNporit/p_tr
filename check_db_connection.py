@@ -21,4 +21,4 @@ try:
 finally:
     pass
     # db.destroy()
-print(l[0].home_phone)
+print(l[0].lastname)

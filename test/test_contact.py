@@ -2,6 +2,8 @@ from model.contact import Contact
 from random import randrange
 import re
 from fixture.orm import ORMFixture
+
+
 def test_of_all_contact(app, json_contact):
     db = ORMFixture(host="127.0.0.1", name="addressbook", user="root", password="")
     contact = json_contact
@@ -14,18 +16,42 @@ def test_of_all_contact(app, json_contact):
     while i < len(contact_from_home_page):
         id = contact_from_home_page[i].id
         contact_db = db.get_contact(id)
-        assert contact_from_home_page[i].all_phones_from_home_page == merge_fields_like_on_home_page([contact_db[0].home_phone,
+        assert contact_from_home_page[i].all_phones_from_home_page == merge_fields_like_on_home_page(
+            [contact_db[0].home_phone,
              contact_db[0].mobile_phone,
              contact_db[0].work_phone,
              contact_db[0].phone2])
-
+        assert contact_from_home_page[i].firstname.strip() == contact_db[0].firstname.strip()
+        assert contact_from_home_page[i].lastname.strip() == contact_db[0].lastname.strip()
+        assert contact_from_home_page[i].address.strip() == contact_db[0].address.strip()
+        assert contact_from_home_page[i].all_emails_from_home_page == merge_fields_like_on_home_page_email(
+            [contact_db[0].email,
+             contact_db[0].email2,
+             contact_db[0].email3])
         i += 1
-        # assert contact_from_home_page.lastname.strip() == contact_from_db.lastname.strip()
-        # assert contact_from_home_page.address == contact_from_db.address
-        # assert contact_from_home_page.all_emails_from_home_page == merge_fields_like_on_home_page_email(
-        #     [contact_from_edit_page.email,
-        #      contact_from_edit_page.email2,
-        #      contact_from_edit_page.email3])
+
+
+def clear(s):
+    return re.sub("[()  -]", "", s)
+
+
+def merge_fields_like_on_home_page(contact):
+    return "\n".join(filter(lambda x: x != "",
+                            map(lambda x: clear(x),
+                                filter(lambda x: x is not None, contact))))
+
+
+def c_new_str(s):
+    if s is None:
+        out = ""
+    else:
+        out = s
+    return out.strip()
+
+
+def merge_fields_like_on_home_page_email(contact):
+    return "\n".join(filter(lambda x: x.strip() != "", map(lambda x: c_new_str(x), contact)))
+
 # def test_of_any_contact(app):
 #     user = Contact(firstname="Петрова", middlename="Иванна", lastname="Ивановна", nickname="кличка",
 #                    photo="", \
@@ -55,25 +81,3 @@ def test_of_all_contact(app, json_contact):
 #         [contact_from_edit_page.email,
 #          contact_from_edit_page.email2,
 #          contact_from_edit_page.email3])
-
-
-def clear(s):
-    return re.sub("[()  -]", "", s)
-
-
-def merge_fields_like_on_home_page(contact):
-    return "\n".join(filter(lambda x: x != "",
-                            map(lambda x: clear(x),
-                                filter(lambda x: x is not None, contact))))
-
-
-def c_new_str(s):
-    if s is None:
-        out = ""
-    else:
-        out = s
-    return out.strip()
-
-
-def merge_fields_like_on_home_page_email(contact):
-    return "\n".join(filter(lambda x: x.strip() != "", map(lambda x: c_new_str(x), contact)))
