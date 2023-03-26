@@ -11,19 +11,27 @@ class UserFieldsHelper():
     def delete_user(self):
         self.delete_contact_by_index(0)
 
-    def delete_contact_by_index(self, index):
+    def delete_contact_by_index(self, index, check_ui):
         wd = self.app.wd
         self.open_users_page()
-        self.select_user_by_index(index)
+        if check_ui:
+            self.select_user_by_index(index)
+        else:
+            self.select_delete_user_by_id(index)
         self.accept_next_alert = True
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to.alert.accept()
         self.user_cache = None
-
     def select_user_by_index(self, index):
         wd = self.app.wd
+        wd.find_elements_by_name("selected[]")[index].click()
+    def select_modify_user_by_id(self, index):
+        wd = self.app.wd
         # wd.find_elements_by_name("selected[]")[index].click()
-        wd.find_element_by_xpath("//input[@value='" + index + "']").click()
+        wd.find_element_by_xpath("//a[@href='edit.php?id=" + index + "']").click()
+    def select_delete_user_by_id(self, index):
+        wd = self.app.wd
+        wd.find_element_by_css_selector("input[id='%s']" % index).click()
 
     def create(self, add_new_user):
         wd = self.app.wd
@@ -110,12 +118,14 @@ class UserFieldsHelper():
         wd = self.app.wd
         id = wd.find_elements_by_name("selected[]")[index].get_attribute("value")
         # wd.find_element_by_xpath("//img[@alt='Edit']").click()
-        wd.find_element_by_xpath(
-            "//table[@id='maintable']/tbody/tr[*]/td[8]/a[@href='edit.php?id=" + str(id) + "']").click()
+        wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[*]/td[8]/a[@href='edit.php?id=" + str(id) + "']").click()
 
-    def modify_user_by_index(self, index, userfield):
+    def modify_user_by_index(self, index, userfield, check_ui):
         self.open_users_page()
-        self.select_user_modify_by_index(index)
+        if check_ui:
+            self.select_user_modify_by_index(index)
+        else:
+            self.select_modify_user_by_id(index)
         self.fill(userfield)
         self.edit_user_submit()
         self.return_home_page()
