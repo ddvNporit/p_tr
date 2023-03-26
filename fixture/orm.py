@@ -34,7 +34,11 @@ class ORMFixture:
         email3 = Optional(str, column="email3")
         groups = Set(lambda: ORMFixture.ORMGroup, table="address_in_groups", column="group_id", reverse="contacts",
                      lazy=True)
-
+    # class ORMContactInGroups(db.Entity):
+    #     _table_ = 'address_in_groups'
+    #     id = PrimaryKey(int, column="id")
+    #     group_id = PrimaryKey(int, column="group_id")
+    #     deprecated = Optional(datetime, column='deprecated')
     def __init__(self, host, name, user, password):
         self.db.bind('mysql', host=host, database=name, user=user, password=password)
         self.db.generate_mapping()
@@ -65,6 +69,10 @@ class ORMFixture:
     @db_session
     def get_contact(self, id):
         return self.convert_contacts_to_model(select(c for c in ORMFixture.ORMContact if c.id == id))
+
+    # @db_session
+    # def get_contact_in_groups(self, group_id):
+    #     return self.convert_contacts_to_model(select(cg for cg in ORMFixture.ORMContactInGroups if cg.group_id == group_id))
 
     @db_session
     def get_contacts_in_group(self, group):

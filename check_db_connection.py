@@ -13,8 +13,9 @@ try:
     # print(len(contacts))
     # l = db.get_group_list()
     # l = db.get_contacts_not_in_group(Group(id="628"))
-    l = db.get_contact("541")
+    # l = db.get_contact("541")
     # l = db.get_contact_list()
+    l = db.get_contact_in_groups("721")
     for item in l:
         print(item.firstname)
     print(len(l))

@@ -2,8 +2,8 @@
 from model.contact import Contact
 
 
-def test_add_user(app, db, json_contact, check_ui):
-    contact = json_contact
+def test_add_user(app, db, json_contacts, check_ui):
+    contact = json_contacts
     if check_ui:
         old_users = app.contact.get_contact_list()
     else:

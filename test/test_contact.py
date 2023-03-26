@@ -16,18 +16,25 @@ def test_of_all_contact(app, json_contact):
     while i < len(contact_from_home_page):
         id = contact_from_home_page[i].id
         contact_db = db.get_contact(id)
+
+        def search_ind(list_test):
+            for x in list_test:
+                if x.id == id:
+                    return x
+            return None
+
         assert contact_from_home_page[i].all_phones_from_home_page == merge_fields_like_on_home_page(
-            [contact_db[0].home_phone,
-             contact_db[0].mobile_phone,
-             contact_db[0].work_phone,
-             contact_db[0].phone2])
-        assert contact_from_home_page[i].firstname.strip() == contact_db[0].firstname.strip()
-        assert contact_from_home_page[i].lastname.strip() == contact_db[0].lastname.strip()
-        assert contact_from_home_page[i].address.strip() == contact_db[0].address.strip()
+            [search_ind(contact_db).home_phone,
+             search_ind(contact_db).mobile_phone,
+             search_ind(contact_db).work_phone,
+             search_ind(contact_db).phone2])
+        assert contact_from_home_page[i].firstname.strip() == search_ind(contact_db).firstname.strip()
+        assert contact_from_home_page[i].lastname.strip() == search_ind(contact_db).lastname.strip()
+        assert contact_from_home_page[i].address.strip() == search_ind(contact_db).address.strip()
         assert contact_from_home_page[i].all_emails_from_home_page == merge_fields_like_on_home_page_email(
-            [contact_db[0].email,
-             contact_db[0].email2,
-             contact_db[0].email3])
+            [search_ind(contact_db).email,
+             search_ind(contact_db).email2,
+             search_ind(contact_db).email3])
         i += 1
 
 
