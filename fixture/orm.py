@@ -23,7 +23,12 @@ class ORMFixture:
         id = PrimaryKey(int, column="id")
         firstname = Optional(str, column="firstname")
         lastname = Optional(str, column="lastname")
+        home_phone = Optional(str, column="home")
+        mobile_phone = Optional(str, column="mobile")
+        work_phone = Optional(str, column="work")
+        phone2 = Optional(str, column="phone2")
         deprecated = Optional(datetime, column='deprecated')
+
         groups = Set(lambda: ORMFixture.ORMGroup, table="address_in_groups", column="group_id", reverse="contacts",
                      lazy=True)
 
@@ -44,13 +49,18 @@ class ORMFixture:
 
     def convert_contacts_to_model(self, contacts):
         def convert(contact):
-            return Contact(id=str(contact.id), firstname=contact.firstname, lastname=contact.lastname)
+            return Contact(id=str(contact.id), firstname=contact.firstname, lastname=contact.lastname, home_phone=contact.home_phone,
+                           mobile_phone=contact.mobile_phone, work_phone=contact.work_phone, phone2=contact.phone2)
 
         return list(map(convert, contacts))
 
     @db_session
     def get_contact_list(self):
         return self.convert_contacts_to_model(select(c for c in ORMFixture.ORMContact if c.deprecated is None))
+
+    @db_session
+    def get_contact(self, id):
+        return self.convert_contacts_to_model(select(c for c in ORMFixture.ORMContact if c.id == id))
 
     @db_session
     def get_contacts_in_group(self, group):

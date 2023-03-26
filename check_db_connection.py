@@ -12,11 +12,13 @@ try:
     #     print(contact)
     # print(len(contacts))
     # l = db.get_group_list()
-    l = db.get_contacts_not_in_group(Group(id="628"))
+    # l = db.get_contacts_not_in_group(Group(id="628"))
+    l = db.get_contact("541")
     # l = db.get_contact_list()
     for item in l:
-        print(item)
+        print(item.firstname)
     print(len(l))
 finally:
     pass
     # db.destroy()
+print(l[0].home_phone)
