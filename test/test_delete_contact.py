@@ -4,8 +4,8 @@ import time
 from random import randrange
 
 
-def test_delete_first_user(app, db, check_ui):
-    if app.contact.count() == 0:
+def test_delete_any_contact(app, db, check_ui):
+    if len(db.get_contact_list()) == 0:
         app.contact.create(Contact(firstname="Петров", middlename="Иван", lastname="Иванович", nickname="кличка", \
                                    title="title", company="comp", address="address", home_phone="home",
                                    mobile_phone="232323", work_phone="232344354", \

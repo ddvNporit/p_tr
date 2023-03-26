@@ -6,7 +6,7 @@ from random import randrange
 
 def test_modify_group_name(app, db, json_groups, check_ui):
     group = json_groups
-    if app.group.count() == 0:
+    if len(db.get_group_list()) == 0:
         app.group.create(Group(name="test name"))
 
     if check_ui:

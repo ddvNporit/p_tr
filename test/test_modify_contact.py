@@ -5,7 +5,7 @@ import random
 
 def test_modify_contact(app, db, json_contact, check_ui):
     contact = json_contact
-    if app.contact.count() == 0:
+    if len(db.get_contact_list()) == 0:
         app.contact.create(contact)
     if check_ui:
         old_contacts = app.contact.get_contact_list()
