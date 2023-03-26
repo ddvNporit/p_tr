@@ -3,6 +3,7 @@ import random
 import time
 from random import randrange
 
+
 def test_delete_first_user(app, db, check_ui):
     if app.contact.count() == 0:
         app.contact.create(Contact(firstname="Петров", middlename="Иван", lastname="Иванович", nickname="кличка", \

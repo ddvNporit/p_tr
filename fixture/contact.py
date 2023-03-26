@@ -22,13 +22,16 @@ class UserFieldsHelper():
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to.alert.accept()
         self.user_cache = None
+
     def select_user_by_index(self, index):
         wd = self.app.wd
         wd.find_elements_by_name("selected[]")[index].click()
+
     def select_modify_user_by_id(self, index):
         wd = self.app.wd
         # wd.find_elements_by_name("selected[]")[index].click()
         wd.find_element_by_xpath("//a[@href='edit.php?id=" + index + "']").click()
+
     def select_delete_user_by_id(self, index):
         wd = self.app.wd
         wd.find_element_by_css_selector("input[id='%s']" % index).click()
@@ -118,7 +121,8 @@ class UserFieldsHelper():
         wd = self.app.wd
         id = wd.find_elements_by_name("selected[]")[index].get_attribute("value")
         # wd.find_element_by_xpath("//img[@alt='Edit']").click()
-        wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[*]/td[8]/a[@href='edit.php?id=" + str(id) + "']").click()
+        wd.find_element_by_xpath(
+            "//table[@id='maintable']/tbody/tr[*]/td[8]/a[@href='edit.php?id=" + str(id) + "']").click()
 
     def modify_contact_by_index(self, index, userfield, check_ui):
         self.open_users_page()
