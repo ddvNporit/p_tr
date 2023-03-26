@@ -11,15 +11,17 @@ def test_modify_contact(app, db, json_contact, check_ui):
         index = randrange(len(old_contact))
         contact.id = old_contact[index].id
         app.contact.modify_contact_by_index(index, contact, check_ui)
-        new_contact = app.contact.get_contact_list()
+        new_contacts = app.contact.get_contact_list()
         old_contact[index] = contact
-        assert sorted(old_contact, key=Contact.id_or_max) == sorted(new_contact, key=Contact.id_or_max)
+        assert len(old_contact) == len(new_contacts)
+        assert sorted(old_contact, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
     else:
         old_contact = db.get_contact_list()
         db_contact_selected = random.choice(old_contact)
         contact.id = db_contact_selected.id
         app.contact.modify_contact_by_index(db_contact_selected.id, contact, check_ui)
         new_contacts = db.get_contact_list()
+        assert len(old_contact) == len(new_contacts)
         assert sorted(old_contact, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
 
 

@@ -1,7 +1,7 @@
 from model.contact import Contact
 import random
 import time
-
+from random import randrange
 
 def test_delete_first_user(app, db, check_ui):
     if app.contact.count() == 0:
@@ -13,13 +13,24 @@ def test_delete_first_user(app, db, check_ui):
                                    bday="23", bmonth="December", byear="1987", address2="jhdufyhdh", phone2="233443",
                                    notes="test add dfdjdj"))
     if check_ui:
-        pass
+        old_contacts = app.contact.get_contact_list()
+        index = randrange(len(old_contacts))
+        app.contact.delete_contact_by_index(index, check_ui)
+        time.sleep(2)
+        new_contacts = app.contact.get_contact_list()
+        assert new_count_contacts(old_contacts) == app.contact.count()
+        old_contacts[index:index + 1] = []
+        assert old_contacts == new_contacts
     else:
-        old_contact = db.get_contact_list()
-        contact = random.choice(old_contact)
+        old_contacts = db.get_contact_list()
+        contact = random.choice(old_contacts)
         app.contact.delete_contact_by_index(contact.id, check_ui)
         time.sleep(2)
         new_contact = db.get_contact_list()
-    assert len(old_contact) - 1 == app.contact.count()
-    old_contact.remove(contact)
-    assert old_contact == new_contact
+        assert new_count_contacts(old_contacts) == app.contact.count()
+        old_contacts.remove(contact)
+        assert old_contacts == new_contact
+
+
+def new_count_contacts(old_contact):
+    return len(old_contact) - 1
