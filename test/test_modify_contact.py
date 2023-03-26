@@ -2,6 +2,7 @@ from model.contact import Contact
 from random import randrange
 import random
 
+
 def test_modify_contact(app, db, json_contact, check_ui):
     contact = json_contact
     if app.contact.count() == 0:
@@ -29,5 +30,3 @@ def test_modify_contact(app, db, json_contact, check_ui):
             i += 1
         assert len(old_contacts) == len(new_contacts)
         assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
-
-
