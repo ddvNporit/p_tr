@@ -34,3 +34,10 @@ class Application:
 
     def destoy(self):
         self.wd.quit()
+    def id_to_index(self, id, in_data):
+        i = 0
+        while i < len(in_data):
+            if in_data[i].id == id:
+                return i
+            i += 1
+        return None

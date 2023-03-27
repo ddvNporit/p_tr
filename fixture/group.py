@@ -8,13 +8,13 @@ class GroupHelper():
     def modify_first_group(self):
         self.modify_group_by_index(0)
 
-    def modify_group_by_index(self, index, new_group_data, check_ui):
+    def modify_group_by_index(self, index, new_group_data):
         wd = self.app.wd
         self.open_groups_page()
-        if check_ui:
-            self.select_group_by_index(index)
-        else:
-            self.select_group_by_id(index)
+        # if check_ui:
+        #     self.select_group_by_index(index)
+        # else:
+        self.select_group_by_id(index)
         # open modify group form
         self.edit_group()
         # fill group form
