@@ -11,13 +11,10 @@ class UserFieldsHelper():
     def delete_user(self):
         self.delete_contact_by_index(0)
 
-    def delete_contact_by_index(self, index, check_ui):
+    def delete_contact_by_index(self, index):
         wd = self.app.wd
         self.open_users_page()
-        if check_ui:
-            self.select_user_by_index(index)
-        else:
-            self.select_delete_user_by_id(index)
+        self.select_delete_user_by_id(index)
         self.accept_next_alert = True
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to.alert.accept()
@@ -124,12 +121,9 @@ class UserFieldsHelper():
         wd.find_element_by_xpath(
             "//table[@id='maintable']/tbody/tr[*]/td[8]/a[@href='edit.php?id=" + str(id) + "']").click()
 
-    def modify_contact_by_index(self, index, userfield, check_ui):
+    def modify_contact_by_index(self, index, userfield):
         self.open_users_page()
-        if check_ui:
-            self.select_user_modify_by_index(index)
-        else:
-            self.select_modify_user_by_id(index)
+        self.select_modify_user_by_id(index)
         self.fill(userfield)
         self.edit_user_submit()
         self.return_home_page()
@@ -211,3 +205,11 @@ class UserFieldsHelper():
             secondaryphone = ""
         return Contact(home_phone=homephone,
                        work_phone=workphone, mobile_phone=mobilephone, phone2=secondaryphone)
+
+    def id_to_index(self, id, in_data):
+        i = 0
+        while i < len(in_data):
+            if in_data[i].id == id:
+                return i
+            i += 1
+        return None

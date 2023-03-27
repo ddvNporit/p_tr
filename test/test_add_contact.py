@@ -4,15 +4,12 @@ from model.contact import Contact
 
 def test_add_user(app, db, json_contact, check_ui):
     contact = json_contact
-    if check_ui:
-        old_users = app.contact.get_contact_list()
-    else:
-        old_users = db.get_contact_list()
+    old_contacts = db.get_contact_list()
     app.contact.create(contact)
+    new_contacts = db.get_contact_list()
+    assert len(old_contacts) + 1 == len(new_contacts)
+    old_contacts.append(contact)
+    assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
+    assert old_contacts == new_contacts
     if check_ui:
-        new_users = app.contact.get_contact_list()
-    else:
-        new_users = db.get_contact_list()
-    assert len(old_users) + 1 == app.contact.count()
-    old_users.append(contact)
-    assert sorted(old_users, key=Contact.id_or_max) == sorted(new_users, key=Contact.id_or_max)
+        assert sorted(new_contacts, key=Contact.id_or_max) == sorted(app.contact.get_contact_list(), key=Contact.id_or_max)
