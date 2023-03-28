@@ -213,3 +213,12 @@ class UserFieldsHelper():
                 return i
             i += 1
         return None
+
+    def add_contact_to_group_by_id(self, id_contact, id_group):
+        wd = self.app.wd
+        self.open_users_page()
+        wd.find_element_by_css_selector("input[id='%s']" % id_contact).click()
+        wd.find_element_by_name("to_group").click()
+        Select(wd.find_element_by_xpath("//select[@name='to_group']")).select_by_value(id_group)
+        wd.find_element_by_name("add").click()
+        wd.find_element_by_xpath('//a[@href="./?group=%s"]' % id_group).click()
