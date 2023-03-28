@@ -2,13 +2,20 @@
 # Author: Denisov
 from model.group import Group
 import random
-from random import randrange
 from model.contact import Contact
+from fixture.orm import ORMFixture
 
 
-def test_add_contact_to_group(app, db, json_contact):
-    new_contact = json_contact
-    # new_group = json_groups
+def test_add_contact_to_group(app):
+    db = ORMFixture(host="127.0.0.1", name="addressbook", user="root", password="")
+    new_contact = Contact(firstname="firstname", middlename="Иван", lastname="Иванович", nickname="кличка", \
+                          photo="D:\\PycharmProjects\\p_tr\\test\\placeimg_1000_459_arch.png", \
+                          title="title", company="comp", address="address", home_phone="home", mobile_phone="232323",
+                          work_phone="232344354", \
+                          fax="232323", email="sd@test.com", email2="we@test.net", email3="wewd@t.er",
+                          homepage="http://ya.ru", \
+                          bday="23", bmonth="December", byear="1987", address2="jhdufyhdh", phone2="233443",
+                          notes="test add dfdjdj")
     if len(db.get_contact_list()) == 0:
         app.contact.create(new_contact)
     if len(db.get_group_list()) == 0:
@@ -18,4 +25,14 @@ def test_add_contact_to_group(app, db, json_contact):
     contacts = db.get_contact_list()
     db_contact_selected = random.choice(contacts)
     app.contact.add_contact_to_group_by_id(db_contact_selected.id, db_group_selected.id)
+    test_list = db.get_contacts_in_group(Group(id=db_group_selected.id))
 
+    def search_contact_in_list(test_list_contact, test_contact):
+        i = 0
+        while i < len(test_list_contact):
+            if test_list_contact[i] == test_contact:
+                return True
+            i += 1
+        return False
+
+    assert search_contact_in_list(test_list, db_contact_selected) == True
