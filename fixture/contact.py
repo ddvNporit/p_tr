@@ -213,3 +213,30 @@ class UserFieldsHelper():
                 return i
             i += 1
         return None
+
+    def add_contact_to_group_by_id(self, id_contact, id_group):
+        wd = self.app.wd
+        self.open_users_page()
+        wd.find_element_by_css_selector("input[id='%s']" % id_contact).click()
+        wd.find_element_by_name("to_group").click()
+        Select(wd.find_element_by_xpath("//select[@name='to_group']")).select_by_value(id_group)
+        wd.find_element_by_name("add").click()
+        wd.find_element_by_xpath('//a[@href="./?group=%s"]' % id_group).click()
+
+    def delete_contact_from_group(self, contact_id, group_id):
+        wd = self.app.wd
+        wd.get("http://localhost/addressbook/?group=759")
+        wd.find_element_by_name("group").click()
+        wd.find_element_by_name("group").click()
+        wd.find_element_by_xpath("//option[@value='%s']" % group_id).click()
+        wd.find_element_by_id(contact_id).click()
+        self.accept_next_alert = True
+        wd.find_element_by_xpath("//input[@name='remove']").click()
+        # self.assertRegexpMatches(self.close_alert_and_get_its_text(), r"^Delete 1 addresses[\s\S]$")
+    def search_contact_in_list(self, test_list_contact, test_contact):
+        i = 0
+        while i < len(test_list_contact):
+            if test_list_contact[i] == test_contact:
+                return True
+            i += 1
+        return False
