@@ -12,7 +12,7 @@ try:
     #     print(contact)
     # print(len(contacts))
     # l = db.get_group_list()
-    l = db.get_contacts_in_group(Group(id="759"))
+    l = db.get_contacts_in_group(Group(id="9"))
     # l = db.get_contact("541")
     # l = db.get_contact_list()
     # l = db.get_contact_in_groups("722")

@@ -62,7 +62,6 @@ def c_new_str(s):
 
 def merge_fields_like_on_home_page_email(contact):
     return "\n".join(filter(lambda x: x.strip() != "", map(lambda x: c_new_str(x), contact)))
-
 # def test_of_any_contact(app):
 #     user = Contact(firstname="Петрова", middlename="Иванна", lastname="Ивановна", nickname="кличка",
 #                    photo="", \
