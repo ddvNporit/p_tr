@@ -4,37 +4,41 @@ import re
 from fixture.orm import ORMFixture
 
 
-def test_of_all_contact(app, json_contact):
+def test_of_all_contact(app):
     db = ORMFixture(host="127.0.0.1", name="addressbook", user="root", password="")
-    contact = json_contact
+    contact = Contact(firstname="firstname", middlename="Иван", lastname="Иванович", nickname="кличка", \
+                      photo="D:\\PycharmProjects\\p_tr\\test\\placeimg_1000_459_arch.png", \
+                      title="title", company="comp", address="address", home_phone="home", mobile_phone="232323",
+                      work_phone="232344354", \
+                      fax="232323", email="sd@test.com", email2="we@test.net", email3="wewd@t.er",
+                      homepage="http://ya.ru", \
+                      bday="23", bmonth="December", byear="1987", address2="jhdufyhdh", phone2="233443",
+                      notes="test add dfdjdj")
+
     if len(db.get_contact_list()) == 0:
         app.contact.create(contact)
-    list_contacts = db.get_contact_list()
-    contact_from_home_page = app.contact.get_contact_list()
-    assert sorted(contact_from_home_page, key=Contact.id_or_max) == sorted(list_contacts, key=Contact.id_or_max)
+    sorted_contact_from_db = sorted(db.get_contact_list(), key=Contact.id_or_max)
+    sorted_from_home_page = sorted(app.contact.get_contact_list(), key=Contact.id_or_max)
+    assert sorted_from_home_page == sorted_contact_from_db
     i = 0
-    while i < len(contact_from_home_page):
-        id = contact_from_home_page[i].id
-        contact_db = db.get_contact(id)
-
-        def search_ind(list_test):
-            for x in list_test:
-                if x.id == id:
-                    return x
-            return None
-
-        assert contact_from_home_page[i].all_phones_from_home_page == merge_fields_like_on_home_page(
-            [search_ind(contact_db).home_phone,
-             search_ind(contact_db).mobile_phone,
-             search_ind(contact_db).work_phone,
-             search_ind(contact_db).phone2])
-        assert contact_from_home_page[i].firstname.strip() == search_ind(contact_db).firstname.strip()
-        assert contact_from_home_page[i].lastname.strip() == search_ind(contact_db).lastname.strip()
-        assert contact_from_home_page[i].address.strip() == search_ind(contact_db).address.strip()
-        assert contact_from_home_page[i].all_emails_from_home_page == merge_fields_like_on_home_page_email(
-            [search_ind(contact_db).email,
-             search_ind(contact_db).email2,
-             search_ind(contact_db).email3])
+    while i < len(sorted_from_home_page):
+        assert sorted_from_home_page[i].all_phones_from_home_page == merge_fields_like_on_home_page(
+            [sorted_contact_from_db[i].home_phone,
+             sorted_contact_from_db[i].mobile_phone,
+             sorted_contact_from_db[i].work_phone,
+             sorted_contact_from_db[i].phone2])
+        assert sorted_from_home_page[i].all_phones_from_home_page == merge_fields_like_on_home_page(
+            [sorted_contact_from_db[i].home_phone,
+            sorted_contact_from_db[i].mobile_phone,
+            sorted_contact_from_db[i].work_phone,
+            sorted_contact_from_db[i].phone2])
+        assert sorted_from_home_page[i].firstname.strip() == sorted_contact_from_db[i].firstname.strip()
+        assert sorted_from_home_page[i].lastname.strip() == sorted_contact_from_db[i].lastname.strip()
+        assert sorted_from_home_page[i].address.strip() == sorted_contact_from_db[i].address.strip()
+        assert sorted_from_home_page[i].all_emails_from_home_page == merge_fields_like_on_home_page_email(
+            [sorted_contact_from_db[i].email,
+        sorted_contact_from_db[i].email2,
+        sorted_contact_from_db[i].email3])
         i += 1
 
 
