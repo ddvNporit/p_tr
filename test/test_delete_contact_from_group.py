@@ -1,5 +1,6 @@
-# Name: test_add_contact_to_group.py
-# Author: Denisov
+# Name : test_delete_contact_from_group.py
+# Author : "Denisov Dmitry"
+# Time : 28.03.2023
 from model.group import Group
 import random
 from model.contact import Contact
@@ -22,8 +23,17 @@ def test_add_contact_to_group(app):
         app.group.create(Group(name="test name"))
     groups = db.get_group_list()
     db_group_selected = random.choice(groups)
-    contacts = db.get_contact_list()
+    try:
+        contacts = db.get_contacts_in_group(db_group_selected.id)
+    except:
+        contact = db.get_contact_list()
+        contacts = app.contact.add_contact_to_group_by_id(contact[0].id, db_group_selected.id)
+
+    contacts = db.get_contacts_in_group(Group(id=db_group_selected.id))
+
     db_contact_selected = random.choice(contacts)
-    app.contact.add_contact_to_group_by_id(db_contact_selected.id, db_group_selected.id)
-    test_list = db.get_contacts_in_group(Group(id=db_group_selected.id))
+    assert app.contact.search_contact_in_list(contacts, db_contact_selected) == True
+    app.contact.delete_contact_from_group(db_contact_selected.id, db_group_selected.id)
+    test_list = db.get_contacts_not_in_group(Group(id=db_group_selected.id))
     assert app.contact.search_contact_in_list(test_list, db_contact_selected) == True
+
