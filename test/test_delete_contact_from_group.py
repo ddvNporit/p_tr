@@ -24,12 +24,17 @@ def test_add_contact_to_group(app):
     groups = db.get_group_list()
     db_group_selected = random.choice(groups)
     try:
-        contacts = db.get_contacts_in_group(db_group_selected.id)
+        contacts = db.get_contacts_in_group(Group(id=db_group_selected.id))
+        if contacts == []:
+            contact = db.get_contact_list()
+            app.contact.add_contact_to_group_by_id(contact[0].id, db_group_selected.id)
+            contacts = db.get_contacts_in_group(Group(id=db_group_selected.id))
     except:
         contact = db.get_contact_list()
         app.contact.add_contact_to_group_by_id(contact[0].id, db_group_selected.id)
         contacts = db.get_contacts_in_group(Group(id=db_group_selected.id))
     db_contact_selected = random.choice(contacts)
+    print (db_group_selected.id)
     assert app.contact.search_contact_in_list(contacts, db_contact_selected) == True
     app.contact.delete_contact_from_group(db_contact_selected.id, db_group_selected.id)
     test_list = db.get_contacts_not_in_group(Group(id=db_group_selected.id))
