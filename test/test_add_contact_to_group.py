@@ -3,11 +3,11 @@
 from model.group import Group
 import random
 from model.contact import Contact
-from fixture.orm import ORMFixture
 
 
-def test_add_contact_to_group(app, db):
-    orm = ORMFixture(host="127.0.0.1", name="addressbook", user="root", password="")
+
+def test_add_contact_to_group(app, db, orm):
+    # orm = ORMFixture(host="127.0.0.1", name="addressbook", user="root", password="")
     new_contact = Contact(firstname="firstname", middlename="Иван", lastname="Иванович", nickname="кличка", \
                           photo="D:\\PycharmProjects\\p_tr\\test\\placeimg_1000_459_arch.png", \
                           title="title", company="comp", address="address", home_phone="home", mobile_phone="232323",

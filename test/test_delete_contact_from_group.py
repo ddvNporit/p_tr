@@ -4,11 +4,10 @@
 from model.group import Group
 import random
 from model.contact import Contact
-from fixture.orm import ORMFixture
 
 
-def test_add_contact_to_group(app, db):
-    orm = ORMFixture(host="127.0.0.1", name="addressbook", user="root", password="")
+def test_add_contact_to_group(app, db, orm):
+    # orm = ORMFixture(host="127.0.0.1", name="addressbook", user="root", password="")
     new_contact = Contact(firstname="firstname", middlename="Иван", lastname="Иванович", nickname="кличка", \
                           photo="D:\\PycharmProjects\\p_tr\\test\\placeimg_1000_459_arch.png", \
                           title="title", company="comp", address="address", home_phone="home", mobile_phone="232323",
@@ -23,17 +22,16 @@ def test_add_contact_to_group(app, db):
         app.group.create(Group(name="test name"))
     groups = db.get_group_list()
     db_group_selected = random.choice(groups)
-    id_group = db_group_selected.id
-    try:
-        contacts = orm.get_contacts_in_group(db_group_selected)
-        if contacts == []:
-            contact = db.get_contact_list()
-            app.contact.add_contact_to_group_by_id(contact[0].id, db_group_selected.id)
-            contacts = orm.get_contacts_in_group(db_group_selected)
-    except:
+    # try:
+    contacts = orm.get_contacts_in_group(db_group_selected)
+    if contacts == []:
         contact = db.get_contact_list()
         app.contact.add_contact_to_group_by_id(contact[0].id, db_group_selected.id)
         contacts = orm.get_contacts_in_group(db_group_selected)
+    # except:
+    #     contact = db.get_contact_list()
+    #     app.contact.add_contact_to_group_by_id(contact[0].id, db_group_selected.id)
+    #     contacts = orm.get_contacts_in_group(db_group_selected)
     db_contact_selected = random.choice(contacts)
     assert app.contact.search_contact_in_list(contacts, db_contact_selected) == True
     app.contact.delete_contact_from_group(db_contact_selected.id, db_group_selected.id)

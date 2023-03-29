@@ -7,9 +7,9 @@ from pymysql.converters import decoders
 
 
 class ORMFixture:
-    db = Database()
+    orm_db = Database()
 
-    class ORMGroup(db.Entity):
+    class ORMGroup(orm_db.Entity):
         _table_ = 'group_list'
         id = PrimaryKey(int, column="group_id")
         name = Optional(str, column="group_name")
@@ -18,7 +18,7 @@ class ORMFixture:
         contacts = Set(lambda: ORMFixture.ORMContact, table="address_in_groups", column="id", reverse="groups",
                        lazy=True)
 
-    class ORMContact(db.Entity):
+    class ORMContact(orm_db.Entity):
         _table_ = 'addressbook'
         id = PrimaryKey(int, column="id")
         firstname = Optional(str, column="firstname")
@@ -36,8 +36,8 @@ class ORMFixture:
                      lazy=True)
 
     def __init__(self, host, name, user, password):
-        self.db.bind('mysql', host=host, database=name, user=user, password=password)
-        self.db.generate_mapping()
+        self.orm_db.bind('mysql', host=host, database=name, user=user, password=password)
+        self.orm_db.generate_mapping()
         sql_debug(True)
 
     def convert_groups_to_model(self, groups):
@@ -76,3 +76,4 @@ class ORMFixture:
         orm_group = list(select(g for g in ORMFixture.ORMGroup if g.id == group.id))[0]
         return self.convert_contacts_to_model(
             select(c for c in ORMFixture.ORMContact if c.deprecated is None and orm_group not in c.groups))
+

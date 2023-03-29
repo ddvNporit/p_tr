@@ -1,11 +1,9 @@
 from model.contact import Contact
 from random import randrange
 import re
-from fixture.orm import ORMFixture
 
 
-def test_of_all_contact(app):
-    db = ORMFixture(host="127.0.0.1", name="addressbook", user="root", password="")
+def test_of_all_contact(app, db):
     contact = Contact(firstname="firstname", middlename="Иван", lastname="Иванович", nickname="кличка", \
                       photo="D:\\PycharmProjects\\p_tr\\test\\placeimg_1000_459_arch.png", \
                       title="title", company="comp", address="address", home_phone="home", mobile_phone="232323",
