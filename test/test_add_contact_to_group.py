@@ -5,9 +5,7 @@ import random
 from model.contact import Contact
 
 
-
 def test_add_contact_to_group(app, db, orm):
-    # orm = ORMFixture(host="127.0.0.1", name="addressbook", user="root", password="")
     new_contact = Contact(firstname="firstname", middlename="Иван", lastname="Иванович", nickname="кличка", \
                           photo="D:\\PycharmProjects\\p_tr\\test\\placeimg_1000_459_arch.png", \
                           title="title", company="comp", address="address", home_phone="home", mobile_phone="232323",
@@ -22,7 +20,10 @@ def test_add_contact_to_group(app, db, orm):
         app.group.create(Group(name="test name"))
     groups = db.get_group_list()
     db_group_selected = random.choice(groups)
-    contacts = db.get_contact_list()
+    contacts = orm.get_contacts_not_in_group(db_group_selected)
+    if len(contacts) == 0:
+        app.contact.create(new_contact)
+        contacts = orm.get_contacts_not_in_group(db_group_selected)
     db_contact_selected = random.choice(contacts)
     app.contact.add_contact_to_group_by_id(db_contact_selected.id, db_group_selected.id)
     test_list = orm.get_contacts_in_group(db_group_selected)
