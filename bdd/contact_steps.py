@@ -40,7 +40,8 @@ def verify_contact_deleted(app, db, non_empty_contact_list, random_contact, chec
 def contact_list(app, db):
     return db.get_contact_list()
 
-@given(parsers.parse("a contact with {firstname}, {lastname} and {address}"),target_fixture="new_contact")
+
+@given(parsers.parse("a contact with {firstname}, {lastname} and {address}"), target_fixture="new_contact")
 def new_contact(firstname, lastname, address):
     return Contact(firstname=firstname, lastname=lastname, address=address)
 
@@ -63,18 +64,20 @@ def verify_contact_added(app, db, contact_list, new_contact, check_ui):
 
 @when("I edit the contact from the list according to given contact")
 def edit_contact(app, random_contact, new_contact):
-    app.contact.edit_contact_by_id(random_contact.id, new_contact)
+    app.contact.modify_contact_by_index(random_contact.id, new_contact)
+    # time.sleep(2)
 
 
 @then("the new contact list is equal to the old list with the edited contact")
 def verify_contact_edited(app, db, non_empty_contact_list, random_contact, new_contact, check_ui):
+    # time.sleep(2)
     old_contacts = non_empty_contact_list
     new_contacts = db.get_contact_list()
-    old_contacts.remove(random_contact)
-    old_contacts.append(new_contact)
+    id = random_contact.id
+    index = app.id_to_index(id, old_contacts)
+    new_contact.id = id
+    old_contacts[index] = new_contact
     assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
-    a = sorted(app.contact.get_contact_list(), key=Contact.id_or_max)
-    b = sorted(new_contacts, key=Contact.id_or_max)
     if check_ui:
         assert sorted(new_contacts, key=Contact.id_or_max) \
                == sorted(app.contact.get_contact_list(), key=Contact.id_or_max)

@@ -19,11 +19,10 @@ Scenario Outline: Add new contact
 Scenario Outline: Edit a contact
   Given a non-empty contact list
   Given a random contact from the list
-  Given a contact with <firstname>, <lastname>, <address>, <email> and <mobile>
+  Given a contact with <firstname>, <lastname> and <address>
   When I edit the contact from the list according to given contact
   Then the new contact list is equal to the old list with the edited contact
 
     Examples:
-  | firstname   | lastname    | address     | email     | mobile    |
-  | nameUPD1    | lastUPD1    | address UPD1| emailUPD1 | mobileUPD1|
-  | firstname2u | lastname2u  | address 2u  | email2u   | mobile2u  |
+  | firstname   | lastname    | address     |
+  | nameUPD1    | lastUPD1    | addressUPD1 |
