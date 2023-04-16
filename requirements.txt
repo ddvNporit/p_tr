@@ -4,4 +4,4 @@ selenium==3.14.0
 jsonpickle
 pony
 pymysql
-mysql-connector-python-rf
+pymsql
