@@ -63,14 +63,12 @@ def verify_contact_added(app, db, contact_list, new_contact, check_ui):
 
 
 @when("I edit the contact from the list according to given contact")
-def edit_contact(app, random_contact, new_contact):
+def modify_contact(app, random_contact, new_contact):
     app.contact.modify_contact_by_index(random_contact.id, new_contact)
-    # time.sleep(2)
 
 
 @then("the new contact list is equal to the old list with the edited contact")
 def verify_contact_edited(app, db, non_empty_contact_list, random_contact, new_contact, check_ui):
-    # time.sleep(2)
     old_contacts = non_empty_contact_list
     new_contacts = db.get_contact_list()
     id = random_contact.id

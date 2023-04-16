@@ -25,4 +25,4 @@ Scenario Outline: Edit a contact
 
     Examples:
   | firstname   | lastname    | address     |
-  | nameUPD1    | lastUPD1    | addressUPD1 |
+  | nррmeUP1    | lastрUро1    | ad33essUP54 |
