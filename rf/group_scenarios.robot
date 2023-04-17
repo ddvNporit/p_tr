@@ -24,3 +24,16 @@ Delete group
     ${new_list}=  Get Group List
     Remove Values From List  ${old_list}  ${group}
     Group Lists Should be Equal  ${new_list}  ${old_list}
+
+
+Modify group
+    ${old_list}=  Get Group List
+    ${len}=  Get Length    ${old_list}
+    ${index}=  Evaluate    random.randrange(${len})  random
+    ${group}=  Get From List    ${old_list}    ${index}
+    ${new_group}=  New Group  name1Upd  header1Upd  footer1Upd
+    Modify Group  ${group}  ${new_group}
+    ${new_list}=  Get Group List
+    Remove Values From List  ${old_list}  ${group}
+    Append To List  ${old_list}  ${new_group}
+    Group Lists Should be Equal  ${new_list}  ${old_list}

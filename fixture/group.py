@@ -11,15 +11,9 @@ class GroupHelper():
     def modify_group_by_index(self, index, new_group_data):
         wd = self.app.wd
         self.open_groups_page()
-        # if check_ui:
-        #     self.select_group_by_index(index)
-        # else:
         self.select_group_by_id(index)
-        # open modify group form
         self.edit_group()
-        # fill group form
         self.fill_group_form(new_group_data)
-        # submit modification
         self.edit_group_submit()
         self.return_to_groups_page()
         self.group_cache = None
