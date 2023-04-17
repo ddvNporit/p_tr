@@ -1,0 +1,4 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Mon Apr 17 00:09:42 MSK 2023","Mon Apr 17 00:09:44 MSK 2023","1674","test","test_add_group","test_add_group[None","","","test_add_group[None:::]",""
+"passed","Mon Apr 17 00:09:46 MSK 2023","Mon Apr 17 00:09:47 MSK 2023","1402","test","test_add_group","","","","test_add_group[None:namee v :header:footerf]",""
+"passed","Mon Apr 17 00:09:44 MSK 2023","Mon Apr 17 00:09:46 MSK 2023","1395","test","test_add_group","","","","test_add_group[None:nameu o:header6 9KD6:footerJ1aRPB4U2]",""
