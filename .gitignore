@@ -132,3 +132,4 @@ dmypy.json
 /data/groups.json
 /data/mod_contact.json
 /data/mod_groups.json
+/node_modules/
